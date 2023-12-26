@@ -34,7 +34,7 @@ class Note extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(top: 30, right: 12),
             child: Text("may 28 ,2000",
                 style: TextStyle(
                   color: Colors.black.withOpacity(.3),
