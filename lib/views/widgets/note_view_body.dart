@@ -9,9 +9,10 @@ class NoteViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
+        Padding(
           padding: const EdgeInsets.all(12.0),
-          child: CustomAppbar(),
+          child: CustomAppbar(
+              icon: Icons.search, onPressed: () {}, title: "Notes"),
         ),
         Expanded(child: ListNotes()),
       ],

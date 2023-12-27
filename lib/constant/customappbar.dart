@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomAppbar extends StatelessWidget {
-  const CustomAppbar({super.key});
-
+  const CustomAppbar(
+      {super.key,
+      required this.title,
+      required this.onPressed,
+      required this.icon});
+  final String title;
+  final Function() onPressed;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          "Note App",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        Text(
+          title,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+        IconButton(onPressed: onPressed, icon: Icon(icon)),
       ],
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/constant/colors.dart';
 
 // ignore: must_be_immutable
 class CustomButtom extends StatelessWidget {
