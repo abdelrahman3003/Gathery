@@ -20,7 +20,7 @@ class NoteApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: SafeArea(
-        child: EditNote(),
+        child: NoteView(),
       ),
     );
   }

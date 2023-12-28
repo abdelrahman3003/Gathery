@@ -10,36 +10,67 @@ class ShowButtonSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextfield(
-                hintText: "Title",
-                onSubmitted: (v) {},
-                maxLines: 1,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              CustomTextfield(
-                hintText: "Content",
-                onSubmitted: (v) {},
-                maxLines: 4,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: CustomButtom(
-                    backgroundcolor: kprimarycolor,
-                    textcolor: Colors.black,
-                    text: "Add",
-                    onPressed: () {}),
-              ),
-            ],
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Formtextfield()),
+    );
+  }
+}
+
+class Formtextfield extends StatefulWidget {
+  const Formtextfield({super.key});
+
+  @override
+  State<Formtextfield> createState() => _FormtextfieldState();
+}
+
+class _FormtextfieldState extends State<Formtextfield> {
+  final GlobalKey<FormState> formsate = GlobalKey();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? title, content;
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formsate,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            CustomTextfield(
+              hintText: "Title",
+              onSaved: (v) {
+                title = v;
+              },
+              maxLines: 1,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            CustomTextfield(
+              hintText: "Content",
+              onSaved: (v) {
+                content = v;
+              },
+              maxLines: 4,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: CustomButtom(
+                  backgroundcolor: kprimarycolor,
+                  textcolor: Colors.black,
+                  text: "Add",
+                  onPressed: () {
+                    if (formsate.currentState!.validate()) {
+                      formsate.currentState!.save();
+                    } else {
+                      setState(() {
+                        autovalidateMode = AutovalidateMode.always;
+                      });
+                    }
+                  }),
+            ),
+          ],
         ),
       ),
     );
