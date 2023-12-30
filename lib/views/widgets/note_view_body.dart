@@ -27,7 +27,7 @@ class _NoteViewBodyState extends State<NoteViewBody> {
           child: CustomAppbar(
               icon: Icons.search, onPressed: () {}, title: "Notes"),
         ),
-        Expanded(child: ListNotes()),
+        const Expanded(child: ListNotes()),
       ],
     );
   }
