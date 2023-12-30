@@ -8,7 +8,7 @@ class Note extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.yellow,
+          color: Color(note.color),
           borderRadius: BorderRadius.all(Radius.circular(12))),
       padding: EdgeInsets.only(top: 24, bottom: 20, left: 8),
       child: Column(

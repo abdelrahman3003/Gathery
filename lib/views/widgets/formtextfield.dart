@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:note_app/constant/CustomTextfield.dart';
 import 'package:note_app/constant/constants.dart';
 import 'package:note_app/cubits/add_note%20_cubit/add_note_cubit.dart';
@@ -58,7 +59,8 @@ class _FormtextfieldState extends State<Formtextfield> {
                         NoteModel note = NoteModel(
                             title: title!,
                             subtitle: subtitle!,
-                            date: "28 may",
+                            date:
+                                DateFormat("dd-mm-yyyy").format(DateTime.now()),
                             color: Colors.green.value);
                         BlocProvider.of<AddNoteCubit>(context).addnote(note);
                       } else {
