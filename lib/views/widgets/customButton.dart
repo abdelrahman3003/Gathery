@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/cubits/cubit/add_note_cubit.dart';
+import 'package:note_app/cubits/add_note%20_cubit/add_note_cubit.dart';
 
 // ignore: must_be_immutable
 class CustomButtom extends StatelessWidget {
