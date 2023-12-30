@@ -19,7 +19,6 @@ class _FormtextfieldState extends State<Formtextfield> {
   final GlobalKey<FormState> formsate = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, subtitle;
-  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     return Form(

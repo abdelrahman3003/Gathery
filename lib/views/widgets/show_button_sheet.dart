@@ -9,14 +9,14 @@ class ShowButtonSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddNoteCubit(),
-      child: Container(
-        child: Padding(
-          padding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              bottom: MediaQuery.of(context).viewInsets.bottom),
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: BlocProvider(
+          create: (context) => AddNoteCubit(),
           child: const Formtextfield(),
         ),
       ),
