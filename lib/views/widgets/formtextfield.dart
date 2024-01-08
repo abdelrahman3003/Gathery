@@ -76,7 +76,8 @@ class _FormtextfieldState extends State<Formtextfield> {
           title: title!,
           subtitle: subtitle!,
           date: DateFormat("dd-mm-yyyy").format(DateTime.now()),
-          color: Colors.green.value);
+          color: BlocProvider.of<AddNoteCubit>(context).color.value);
+
       BlocProvider.of<AddNoteCubit>(context).addnote(note);
     } else {
       setState(() {

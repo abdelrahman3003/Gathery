@@ -13,7 +13,7 @@ class NoteView extends StatelessWidget {
           showModalBottomSheet(
               isScrollControlled: true,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.circular(20)),
+                  borderRadius: BorderRadiusDirectional.circular(30)),
               context: context,
               builder: (context) {
                 return ShowButtonSheet();

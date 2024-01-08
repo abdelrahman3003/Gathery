@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/constant/constants.dart';
+import 'package:note_app/cubits/add_note%20_cubit/add_note_cubit.dart';
 
 class ColorLisView extends StatefulWidget {
   const ColorLisView({super.key});
@@ -22,6 +24,8 @@ class _ColorLisViewState extends State<ColorLisView> {
                 onTap: () {
                   setState(() {
                     currentindex = index;
+                    BlocProvider.of<AddNoteCubit>(context).color =
+                        colors[index];
                   });
                 },
                 child: currentindex == index
