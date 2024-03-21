@@ -21,7 +21,7 @@ class Note extends StatelessWidget {
         decoration: BoxDecoration(
             color: Color(note.color),
             borderRadius: BorderRadius.all(Radius.circular(12))),
-        padding: EdgeInsets.only(top: 24, bottom: 20, left: 8),
+        padding: const EdgeInsets.only(top: 24, bottom: 20, left: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -30,7 +30,7 @@ class Note extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 18),
                   child: Text(
                     note.title,
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ),
                 subtitle: Text(

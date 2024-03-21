@@ -19,9 +19,9 @@ class NoteView extends StatelessWidget {
                 return ShowButtonSheet();
               });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
-      body: NoteViewBody(),
+      body: const NoteViewBody(),
     );
   }
 }
