@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "587328776002",
+    "firebase_url": "https://gathery-2b199-default-rtdb.firebaseio.com",
+    "project_id": "gathery-2b199",
+    "storage_bucket": "gathery-2b199.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587328776002:android:290be63786f50d09d6cadb",
+        "android_client_info": {
+          "package_name": "com.example.book"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPTTaZAhUAqK42I9xpDlixS19Y3ruTnn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587328776002:android:55e5f390ca0cb914d6cadb",
+        "android_client_info": {
+          "package_name": "com.example.gatherly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPTTaZAhUAqK42I9xpDlixS19Y3ruTnn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587328776002:android:6d7796b377f7865bd6cadb",
+        "android_client_info": {
+          "package_name": "com.example.note_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPTTaZAhUAqK42I9xpDlixS19Y3ruTnn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
