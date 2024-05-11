@@ -9,7 +9,7 @@ import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/picked_image.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/event/events_data.dart';
+import 'package:note_app/data/dataSource/event/events_data.dart';
 
 abstract class CeateEventController extends GetxController {
   Future<void> selectStartDate(BuildContext context);

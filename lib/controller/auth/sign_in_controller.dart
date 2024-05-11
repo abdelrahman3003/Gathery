@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
+import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/auth/firebase_auth.dart';
+import 'package:note_app/data/dataSource/auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 abstract class SignInController extends GetxController {
@@ -21,6 +22,7 @@ class SignInControllerImp extends SignInController {
   FirebaseAuthServices authServices = FirebaseAuthServices();
   StatusRequest statusRequest = StatusRequest.none;
   Crud crud = Crud();
+  AppServices appServices = Get.find();
   @override
   void signIn() async {
     statusRequest = StatusRequest.loading;
@@ -29,6 +31,8 @@ class SignInControllerImp extends SignInController {
       User? user = await authServices.signInwithEmailandPassword(
           emailController.text, passwordController.text);
       if (user != null) {
+        appServices.sharedPreferences.setString("id", "emailController.text");
+        print("=====================");
         Get.rawSnackbar(
             backgroundColor: Colors.grey,
             title: "Suceessfully login",

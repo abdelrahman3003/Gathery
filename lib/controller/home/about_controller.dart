@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
+import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/event/events_data.dart';
+import 'package:note_app/data/dataSource/event/events_data.dart';
 
 abstract class AboutController extends GetxController {
   getData();
@@ -9,11 +10,12 @@ abstract class AboutController extends GetxController {
 
 class AboutControllerImp extends AboutController {
   StatusRequest statusRequest = StatusRequest.none;
+  AppServices appServices = Get.find();
   EventsData eventsData = EventsData(Get.find());
   String eventTitle = "";
   String startDat = "";
   String endDate = "";
-  String? image ;
+  String? image;
   @override
   getData() async {
     statusRequest = StatusRequest.loading;
@@ -33,6 +35,7 @@ class AboutControllerImp extends AboutController {
 
   @override
   void onInit() {
+    //print("==================${appServices.sharedPreferences.getString("id")}");
     getData();
     super.onInit();
   }

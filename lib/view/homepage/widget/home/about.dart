@@ -21,7 +21,8 @@ class About extends StatelessWidget {
           const AboutItem(title: "Member number", text: "5"),
           const SizedBox(height: 20),
           Container(
-              height: 170.h,
+              height: 180.h,
+              width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
               ),

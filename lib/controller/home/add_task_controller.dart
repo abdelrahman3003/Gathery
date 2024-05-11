@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/event/events_data.dart';
-import 'package:note_app/data/task/task_data.dart';
+import 'package:note_app/data/dataSource/task/task_data.dart';
 
 abstract class AddTaskController extends GetxController {
   addCheck();
   addTask();
   onChangeDropDownMember(String val);
+  clearFileds();
 }
 
 class AddTaskControllerImp extends AddTaskController {
@@ -24,12 +23,13 @@ class AddTaskControllerImp extends AddTaskController {
     'member4',
   ];
   String memberValue = "";
+  double num = 5.0;
   TextEditingController titleController = TextEditingController();
   TextEditingController optionController = TextEditingController();
-
+  List<TextEditingController> optionTextFieldList = [TextEditingController()];
   @override
   addCheck() {
-    task++;
+    optionTextFieldList.add(TextEditingController());
     update();
   }
 
@@ -38,13 +38,16 @@ class AddTaskControllerImp extends AddTaskController {
     if (formKey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
+      List<String> enteredDataList =
+          optionTextFieldList.map((controller) => controller.text).toList();
       statusRequest = await taskData.addTask(
-          memberValue, titleController.text, optionController.text);
+          memberValue, titleController.text, num, enteredDataList);
       if (statusRequest == StatusRequest.success) {
-           Get.rawSnackbar(
+        Get.rawSnackbar(
             backgroundColor: Colors.grey,
             title: "Suceessfully task added",
             messageText: const Text(""));
+        clearFileds();
       }
     }
     update();
@@ -54,5 +57,19 @@ class AddTaskControllerImp extends AddTaskController {
   onChangeDropDownMember(String val) {
     memberValue = val.toString();
     update();
+  }
+
+  @override
+  clearFileds() {
+    memberValue = "";
+    titleController.clear();
+    optionTextFieldList.clear();
+    optionTextFieldList = [TextEditingController()];
+    update();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
   }
 }

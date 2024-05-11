@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/auth/firebase_auth.dart';
+import 'package:note_app/data/dataSource/auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../../core/constatnt/handling _data.dart';

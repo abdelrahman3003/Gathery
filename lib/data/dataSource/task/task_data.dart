@@ -6,11 +6,16 @@ class TaskData {
   Crud crud;
   TaskData(this.crud);
   Future<StatusRequest> addTask(
-      String member, String title, String option) async {
+      String member, String title,double num, List<String> option) async {
     return await crud.postData("Tasks", {
       "member": member,
       "title": title,
-      "option": option,
+      "num": num,
+      'option': option,
     });
+  }
+    getTasks() async {
+    var response = await crud.getData("Tasks");
+    return response.fold((l) => l, (r) => r);
   }
 }

@@ -8,15 +8,15 @@ class ListAddedTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AddTaskControllerImp>(
-      builder: (controller) {
-        return ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: controller.task,
-          itemBuilder: (context, index) => const CheckboxTextForm(),
-        );
-      }
-    );
+    return GetBuilder<AddTaskControllerImp>(builder: (controller) {
+      return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: controller.optionTextFieldList.length,
+        itemBuilder: (context, index) => CheckboxTextForm(
+          controller: controller.optionTextFieldList[index],
+        ),
+      );
+    });
   }
 }

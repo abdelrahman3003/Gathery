@@ -10,30 +10,12 @@ class TasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(TasksControllerImp());
     return GetBuilder<TasksControllerImp>(builder: (controller) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            TaskItem(
-              currentValue: controller.currentValue!,
-              userName: "userName 1",
-              taskName: "taskName 1",
-            ),
-            TaskItem(
-              currentValue: controller.currentValue!,
-              userName: "userName 2",
-              taskName: "taskName 2",
-            ),
-            TaskItem(
-              currentValue: controller.currentValue!,
-              userName: "userName 3",
-              taskName: "taskName 3",
-            ),
-            TaskItem(
-              currentValue: controller.currentValue!,
-              userName: "userName 4",
-              taskName: "taskName 4",
-            ),
-          ],
+      return ListView.builder(
+        itemCount: controller.taskModelList.length,
+        itemBuilder: (context, index) => TaskItem(
+          currentValue: controller.taskModelList[index].num,
+          userName: controller.taskModelList[index].user,
+          taskName: controller.taskModelList[index].taskName,
         ),
       );
     });

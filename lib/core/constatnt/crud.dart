@@ -25,7 +25,6 @@ class Crud {
         querySnapshot.docs.forEach((doc) {
           userDataList.add(doc.data());
         });
-      
 
         return right(userDataList);
       } else {
@@ -37,7 +36,7 @@ class Crud {
   }
 
   Future<StatusRequest> postData(
-      String collection, Map<String, String> data) async {
+      String collection, Map<String, dynamic> data) async {
     try {
       if (await checkInternetConnection()) {
         CollectionReference items = firestore.collection(collection);
