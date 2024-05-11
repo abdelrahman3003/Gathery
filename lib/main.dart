@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:note_app/core/constatnt/binding.dart';
 
 import 'core/constatnt/routApp.dart';
 
@@ -23,6 +24,7 @@ class Gatherly extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) => GetMaterialApp(
+          initialBinding: AppBinding(),
               debugShowCheckedModeBanner: false,
               theme: ThemeData(textTheme: GoogleFonts.latoTextTheme()),
               getPages: getPages,

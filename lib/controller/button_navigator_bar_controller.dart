@@ -3,7 +3,6 @@ import 'package:note_app/view/homepage/home_View.dart';
 import 'package:note_app/view/homepage/profile_view.dart';
 import 'package:note_app/view/homepage/vote_view.dart';
 import 'package:note_app/view/homepage/widget/home/add_task_view.dart';
-import 'package:note_app/view/homepage/widget/home/tasks_view.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 abstract class ButtonNavigatorBarController extends GetxController {

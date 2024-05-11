@@ -25,6 +25,7 @@ class Crud {
         querySnapshot.docs.forEach((doc) {
           userDataList.add(doc.data());
         });
+      
 
         return right(userDataList);
       } else {
@@ -43,7 +44,7 @@ class Crud {
         await items.add(data);
         return StatusRequest.success;
       } else {
-        return StatusRequest.failure;
+        return StatusRequest.serverFailure;
       }
     } catch (e) {
       return StatusRequest.serverFailure;

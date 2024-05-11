@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:note_app/controller/home/about_controller.dart';
 import 'package:note_app/view/homepage/widget/home/about_item.dart';
 import 'package:note_app/view/homepage/widget/home/messages_text.dart';
 
@@ -8,26 +10,33 @@ class About extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20),
-        const AboutItem(title: "Event title", text: "Event Name"),
-        const AboutItem(title: "Event start date", text: "4-5-2024"),
-        const AboutItem(title: "Event end date", text: "10-5-2024"),
-        const AboutItem(title: "Member number", text: "5"),
-        const SizedBox(height: 20),
-        Container(
-          height: 170.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+    Get.put(AboutControllerImp());
+    return GetBuilder<AboutControllerImp>(builder: (controller) {
+      return Column(
+        children: [
+          const SizedBox(height: 20),
+          AboutItem(title: "Event title", text: controller.eventTitle),
+          AboutItem(title: "Event start date", text: controller.startDat),
+          AboutItem(title: "Event end date", text: controller.endDate),
+          const AboutItem(title: "Member number", text: "5"),
+          const SizedBox(height: 20),
+          Container(
+              height: 170.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: controller.image == null
+                  ? const Center(child: CircularProgressIndicator())
+                  : Image.network(
+                      controller.image!,
+                      fit: BoxFit.cover,
+                    )),
+          const SizedBox(
+            height: 20,
           ),
-          child: Image.asset(
-            "assets/images/test1.png",
-            fit: BoxFit.cover,
-          ),
-        ),
-        const MessageText()
-      ],
-    );
+          const MessageText()
+        ],
+      );
+    });
   }
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/controller/button_navigator_bar_controller.dart';
-import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/view/homepage/widget/bottom_navigate/appButtonNavigarBar.dart';
 import 'package:note_app/view/homepage/widget/bottom_navigate/costom_appbar.dart';
-import 'package:note_app/view/homepage/widget/chat/chat_appbar.dart';
 import 'package:note_app/view/homepage/widget/vote/widget/popMenu_vote.dart';
 import 'package:get/get.dart';
 

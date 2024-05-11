@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:get/get.dart';
+import 'package:note_app/core/constatnt/statuscode.dart';
+import 'package:note_app/data/event/events_data.dart';
+import 'package:note_app/data/task/task_data.dart';
 
 abstract class AddTaskController extends GetxController {
   addCheck();
@@ -10,6 +13,8 @@ abstract class AddTaskController extends GetxController {
 
 class AddTaskControllerImp extends AddTaskController {
   int task = 1;
+  StatusRequest statusRequest = StatusRequest.none;
+  TaskData taskData = TaskData(Get.find());
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   List<String> members = [
@@ -19,6 +24,9 @@ class AddTaskControllerImp extends AddTaskController {
     'member4',
   ];
   String memberValue = "";
+  TextEditingController titleController = TextEditingController();
+  TextEditingController optionController = TextEditingController();
+
   @override
   addCheck() {
     task++;
@@ -26,10 +34,18 @@ class AddTaskControllerImp extends AddTaskController {
   }
 
   @override
-  addTask() {
+  addTask() async {
     if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-      Get.toNamed(kTaskDetailsView);
+      statusRequest = StatusRequest.loading;
+      update();
+      statusRequest = await taskData.addTask(
+          memberValue, titleController.text, optionController.text);
+      if (statusRequest == StatusRequest.success) {
+           Get.rawSnackbar(
+            backgroundColor: Colors.grey,
+            title: "Suceessfully task added",
+            messageText: const Text(""));
+      }
     }
     update();
   }

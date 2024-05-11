@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,6 @@ import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/picked_image.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/core/constatnt/upload_image.dart';
 import 'package:note_app/data/event/events_data.dart';
 
 abstract class CeateEventController extends GetxController {
@@ -19,7 +17,6 @@ abstract class CeateEventController extends GetxController {
   Future<void> pickImage();
   selectImage();
   safeData();
-  Future<void> addEvent();
 }
 
 class CeateEventControllerImp extends CeateEventController {
@@ -100,41 +97,6 @@ class CeateEventControllerImp extends CeateEventController {
   }
 
   @override
-  Future<void> addEvent() async {
-    if (imagePath == null) {
-      Get.defaultDialog(
-        title: "please download iamge",
-        middleText: "",
-      );
-      // } else {
-      //   File imageFile = File(imagePath!);
-      //   String? imageUrl = await uploadImage(imageFile);
-      //   if (imageUrl == null) {
-      //     Get.defaultDialog(
-      //       title: "error",
-      //       middleText: "this image not valid",
-      //     );
-      //   } else {
-      //     statusRequest = StatusRequest.loading;
-      //     statusRequest = await crud.postData('events', {
-      //       'title': textEditingTitleController.text,
-      //       'start event': textEditingSatrtDateController.text,
-      //       'end event': textEditingEndDateController.text,
-      //       'imageUrl': imageUrl,
-      //     });
-      //     if (statusRequest == StatusRequest.success) {
-      //       Get.toNamed(kBottomNavigationScreen);
-      //     } else {
-      //       Get.defaultDialog(
-      //         title: "in valid details",
-      //         middleText: "",
-      //       );
-      //     }
-      //   }
-    }
-  }
-
-  @override
   selectImage() async {
     image = await pickedImage(ImageSource.gallery);
     update();
@@ -142,9 +104,10 @@ class CeateEventControllerImp extends CeateEventController {
 
   @override
   safeData() async {
+    print("======== 33333${textEditingTitleController.text}");
     statusRequest = StatusRequest.loading;
     update();
-    EventsData eventsData = EventsData();
+    EventsData eventsData = EventsData(Get.find());
     statusRequest = await eventsData.safeData(
       textEditingTitleController.text,
       textEditingSatrtDateController.text,
@@ -153,10 +116,23 @@ class CeateEventControllerImp extends CeateEventController {
     );
     if (statusRequest == StatusRequest.success) {
       Get.toNamed(kBottomNavigationScreen);
+      Get.rawSnackbar(
+          title: "Sucess",
+          backgroundColor: Colors.grey,
+          messageText: const Text(
+            "now you is event admin",
+            style: TextStyle(color: AppColor.white),
+          ));
+    } else if (statusRequest == StatusRequest.failure) {
+      Get.defaultDialog(
+        title: "error",
+        middleText: "change this image",
+      );
+      update();
     } else {
       Get.defaultDialog(
         title: "error",
-        middleText: "invalid details",
+        middleText: "invalid data",
       );
       update();
     }

@@ -32,9 +32,7 @@ class SignInControllerImp extends SignInController {
         Get.rawSnackbar(
             backgroundColor: Colors.grey,
             title: "Suceessfully login",
-            messageText: const Text(
-              "",
-            ));
+            messageText: const Text(""));
         Get.toNamed(kCreateEvent);
         statusRequest = StatusRequest.success;
       } else {
@@ -55,5 +53,4 @@ class SignInControllerImp extends SignInController {
     isScurePassword = !isScurePassword;
     update();
   }
-
 }
