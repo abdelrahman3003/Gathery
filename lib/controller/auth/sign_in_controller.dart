@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/data/auth/firebase_auth.dart';
@@ -19,6 +20,7 @@ class SignInControllerImp extends SignInController {
       TextEditingController(text: "123456");
   FirebaseAuthServices authServices = FirebaseAuthServices();
   StatusRequest statusRequest = StatusRequest.none;
+  Crud crud = Crud();
   @override
   void signIn() async {
     statusRequest = StatusRequest.loading;
@@ -50,8 +52,8 @@ class SignInControllerImp extends SignInController {
 
   @override
   onScure() {
-    print("==============");
     isScurePassword = !isScurePassword;
     update();
   }
+
 }

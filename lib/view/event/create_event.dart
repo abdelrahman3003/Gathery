@@ -137,31 +137,28 @@ class CreateEvent extends StatelessWidget {
                   const SizedBox(height: 12),
                   Center(
                     child: GestureDetector(
-                      onTap: controller.pickImage,
+                      onTap: controller.selectImage,
                       child: Container(
-                        height: 177.h,
-                        width: double.infinity,
-                        margin: const EdgeInsets.symmetric(horizontal: 30),
-                        decoration: BoxDecoration(
-                            color: AppColor.third,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: controller.imagePath == null
-                            ? const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.add,
-                                      size: 45, color: AppColor.secondry),
-                                  Icon(Icons.remove,
-                                      size: 45, color: AppColor.secondry),
-                                ],
-                              )
-                            : Image.file(
-                                File(
-                                  controller.imagePath!,
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                      ),
+                          height: 177.h,
+                          width: double.infinity,
+                          margin: const EdgeInsets.symmetric(horizontal: 30),
+                          decoration: BoxDecoration(
+                              color: AppColor.third,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: controller.image == null
+                              ? const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.add,
+                                        size: 45, color: AppColor.secondry),
+                                    Icon(Icons.remove,
+                                        size: 45, color: AppColor.secondry),
+                                  ],
+                                )
+                              : Image.memory(
+                                  controller.image!,
+                                  fit: BoxFit.cover,
+                                )),
                     ),
                   ),
                   Center(
@@ -181,7 +178,7 @@ class CreateEvent extends StatelessWidget {
                           name: "Create event ",
                           textSize: 20,
                           onPressed: () {
-                            Get.toNamed(kBottomNavigationScreen);
+                            controller.safeData();
                           },
                         )),
                   ),

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:note_app/core/constatnt/crud.dart';
 
 class FirebaseAuthServices {
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -24,5 +25,11 @@ class FirebaseAuthServices {
       print("some error eccoured");
     }
     return null;
+  }
+
+  viewUsers(String collection) async {
+    Crud crud = Crud();
+    var response = await crud.getData(collection);
+    return response.fold((l) => l, (r) => r);
   }
 }
