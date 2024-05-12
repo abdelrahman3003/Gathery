@@ -8,14 +8,21 @@ class EventsData {
   Crud crud;
   EventsData(this.crud);
   Future<StatusRequest> safeData(
-      String title, String startDate, String endDate, Uint8List image) async {
+      {required String title,
+      required String admin,
+      required String startDate,
+      required String endDate,
+      required Uint8List image,
+      required List<String> members}) async {
     String? imageUrl = await uploadImageToFirestorage("imageName", image);
     if (imageUrl != null) {
       return await crud.postData("Events", {
         "title": title,
+        "admin": admin,
         "start_date": startDate,
         "end_date": endDate,
-        "image": imageUrl
+        "image": imageUrl,
+        "members": members
       });
     }
     return StatusRequest.failure;

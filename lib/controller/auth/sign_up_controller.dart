@@ -80,9 +80,7 @@ class SignUpControllerImp extends SignUpController {
     update();
     var response = await firebaseAuthServices.viewUsers("users");
     statusRequest = handlingApiData(response);
-    if (statusRequest == StatusRequest.success) {
-      print("-------------- ${response[0]['name']}");
-    }
+    if (statusRequest == StatusRequest.success) {}
 
     update();
   }

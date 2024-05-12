@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+
 
 FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 Future<String?> uploadImageToFirestorage(

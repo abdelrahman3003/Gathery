@@ -31,13 +31,12 @@ class SignInControllerImp extends SignInController {
       User? user = await authServices.signInwithEmailandPassword(
           emailController.text, passwordController.text);
       if (user != null) {
-        appServices.sharedPreferences.setString("id", "emailController.text");
-        print("=====================");
+        appServices.sharedPreferences.setString("id", emailController.text);
         Get.rawSnackbar(
             backgroundColor: Colors.grey,
             title: "Suceessfully login",
             messageText: const Text(""));
-        Get.toNamed(kCreateEvent);
+        Get.offNamed(kJoinEventView);
         statusRequest = StatusRequest.success;
       } else {
         statusRequest = StatusRequest.failure;

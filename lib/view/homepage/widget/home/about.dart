@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:note_app/controller/home/about_controller.dart';
+import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/view/homepage/widget/home/about_item.dart';
 import 'package:note_app/view/homepage/widget/home/messages_text.dart';
 
@@ -28,10 +29,12 @@ class About extends StatelessWidget {
               ),
               child: controller.image == null
                   ? const Center(child: CircularProgressIndicator())
-                  : Image.network(
-                      controller.image!,
-                      fit: BoxFit.cover,
-                    )),
+                  : controller.statusRequest == StatusRequest.success
+                      ? Image.network(
+                          controller.image!,
+                          fit: BoxFit.cover,
+                        )
+                      : const Text("image not found")),
           const SizedBox(
             height: 20,
           ),

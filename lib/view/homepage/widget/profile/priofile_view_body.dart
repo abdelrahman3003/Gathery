@@ -14,6 +14,7 @@ class ProfileViewBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
         child: Column(
+          
           children: [
             const ImageProfile(),
             const SizedBox(height: 20),

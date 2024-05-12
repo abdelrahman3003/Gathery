@@ -12,6 +12,11 @@ class AppServices extends GetxService {
     sharedPreferences = await SharedPreferences.getInstance();
     return this;
   }
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
 }
 
 inialServices() async {

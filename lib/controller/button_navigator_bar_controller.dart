@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/view/homepage/home_View.dart';
-import 'package:note_app/view/homepage/profile_view.dart';
 import 'package:note_app/view/homepage/vote_view.dart';
 import 'package:note_app/view/homepage/widget/home/add_task_view.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:note_app/view/homepage/widget/role/role_view.dart';
 
 abstract class ButtonNavigatorBarController extends GetxController {
   changepage(int i);
@@ -17,7 +17,7 @@ class ButtonNavigatorBarControllerImp extends ButtonNavigatorBarController {
     const HomeView(),
     const AddTaskView(),
     const VoteView(),
-    const ProfileView(),
+    const RoleView(),
   ];
 
   @override

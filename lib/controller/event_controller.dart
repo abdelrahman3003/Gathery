@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/picked_image.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
+import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/data/dataSource/event/events_data.dart';
 
@@ -20,6 +21,7 @@ abstract class CeateEventController extends GetxController {
 }
 
 class CeateEventControllerImp extends CeateEventController {
+  AppServices appServices = AppServices();
   Crud crud = Crud();
   StatusRequest statusRequest = StatusRequest.none;
   DateTime selectedStartDate = DateTime.now();
@@ -109,13 +111,18 @@ class CeateEventControllerImp extends CeateEventController {
     update();
     EventsData eventsData = EventsData(Get.find());
     statusRequest = await eventsData.safeData(
-      textEditingTitleController.text,
-      textEditingSatrtDateController.text,
-      textEditingEndDateController.text,
-      image!,
-    );
+        title: textEditingTitleController.text,
+        admin: appServices.sharedPreferences.getString("id")!,
+        endDate: textEditingEndDateController.text,
+        startDate: textEditingSatrtDateController.text,
+        image: image!,
+        members: [
+          "mmohamed@gmail.com",
+          "hassan@gmail.com",
+          "khalid@gmail.com",
+        ]);
     if (statusRequest == StatusRequest.success) {
-      Get.toNamed(kBottomNavigationScreen);
+      Get.offNamed(kBottomNavigationScreen);
       Get.rawSnackbar(
           title: "Sucess",
           backgroundColor: Colors.grey,

@@ -23,7 +23,7 @@ class AppbarItem extends GetView<ButtonNavigatorBarControllerImp> {
               controller.changepage(1);
             } else if (icon == Icons.how_to_vote) {
               controller.changepage(2);
-            } else if (icon == Icons.person) {
+            } else if (icon == Icons.menu) {
               controller.changepage(3);
             } else {
               controller.changepage(0);

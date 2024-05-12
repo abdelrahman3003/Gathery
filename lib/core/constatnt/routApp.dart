@@ -35,7 +35,9 @@ List<GetPage<dynamic>>? getPages = [
   GetPage(name: kSignUpView, page: () => const SignUpView()),
   GetPage(name: kJoinEventView, page: () => const JoinEventView()),
   GetPage(name: kCreateEvent, page: () => const CreateEvent()),
-  GetPage(name: "/", page: () => const BottomNavigationScreen()),
+  GetPage(
+      name: "/",
+      page: () => const BottomNavigationScreen()),
   GetPage(name: kTaskDetailsView, page: () => const TaskDetailsView()),
   GetPage(name: kAddTaskView, page: () => const AddTaskView()),
   GetPage(name: kProfileView, page: () => const ProfileView()),

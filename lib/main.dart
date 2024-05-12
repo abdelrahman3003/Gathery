@@ -11,6 +11,7 @@ import 'core/constatnt/routApp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ await inialServices();
   await Firebase.initializeApp();
   runApp(const Gatherly());
 }

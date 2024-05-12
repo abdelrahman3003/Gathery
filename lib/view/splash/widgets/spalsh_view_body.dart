@@ -22,7 +22,7 @@ class _SplashBodyState extends State<SplashBody>
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Get.toNamed(kWelcomeView);
+        Get.offNamed(kWelcomeView);
       },
     );
 

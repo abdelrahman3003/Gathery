@@ -17,6 +17,7 @@ class BottomNavigationScreen extends StatelessWidget {
       length: 2,
       child: GetBuilder<ButtonNavigatorBarControllerImp>(builder: (controller) {
         return Scaffold(
+           
             appBar: PreferredSize(
               preferredSize: controller.pageCount == 0
                   ? Size.fromHeight(100.h)
