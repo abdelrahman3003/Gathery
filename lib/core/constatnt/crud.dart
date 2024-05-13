@@ -35,6 +35,21 @@ class Crud {
     }
   }
 
+Future<Either<StatusRequest, CollectionReference>> getLast(
+      String collection) async {
+    try {
+      if (await checkInternetConnection()) {
+        CollectionReference collectionReference =
+             FirebaseFirestore.instance.collection(collection);
+        return right(collectionReference);
+      } else {
+        return left(StatusRequest.offlineFailure);
+      }
+    } catch (e) {
+      return left(StatusRequest.serverFailure);
+    }
+  }
+
   Future<StatusRequest> postData(
       String collection, Map<String, dynamic> data) async {
     try {

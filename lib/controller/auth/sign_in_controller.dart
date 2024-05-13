@@ -31,7 +31,8 @@ class SignInControllerImp extends SignInController {
       User? user = await authServices.signInwithEmailandPassword(
           emailController.text, passwordController.text);
       if (user != null) {
-        appServices.sharedPreferences.setString("id", emailController.text);
+        appServices.sharedPreferences
+            .setString("id",emailController.text);
         Get.rawSnackbar(
             backgroundColor: Colors.grey,
             title: "Suceessfully login",

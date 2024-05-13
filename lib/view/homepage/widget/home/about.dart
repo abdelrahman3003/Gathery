@@ -34,11 +34,11 @@ class About extends StatelessWidget {
                           controller.image!,
                           fit: BoxFit.cover,
                         )
-                      : const Text("image not found")),
+                      : const Center(child: Text("image not found"))),
           const SizedBox(
             height: 20,
           ),
-          const MessageText()
+       //   const MessageText()
         ],
       );
     });

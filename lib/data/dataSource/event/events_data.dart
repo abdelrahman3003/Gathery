@@ -13,7 +13,8 @@ class EventsData {
       required String startDate,
       required String endDate,
       required Uint8List image,
-      required List<String> members}) async {
+      required List<String> members,
+      required String password}) async {
     String? imageUrl = await uploadImageToFirestorage("imageName", image);
     if (imageUrl != null) {
       return await crud.postData("Events", {
@@ -22,14 +23,15 @@ class EventsData {
         "start_date": startDate,
         "end_date": endDate,
         "image": imageUrl,
-        "members": members
+        "members": members,
+        "password": password
       });
     }
     return StatusRequest.failure;
   }
 
   getData() async {
-    var response = await crud.getData("Events");
+    var response = await crud.getLast("Events");
     return response.fold((l) => l, (r) => r);
   }
 }

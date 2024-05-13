@@ -11,7 +11,7 @@ import 'core/constatnt/routApp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await inialServices();
+  await inialServices();
   await Firebase.initializeApp();
   runApp(const Gatherly());
 }
@@ -22,7 +22,7 @@ class Gatherly extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.put(AppServices());
+  
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

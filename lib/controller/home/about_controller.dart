@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/services.dart';
@@ -20,22 +21,29 @@ class AboutControllerImp extends AboutController {
   getData() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await eventsData.getData();
-
-    statusRequest = handlingApiData(response);
+    CollectionReference collectionReference = await eventsData.getData();
+    QuerySnapshot querySnapshot =
+        await collectionReference.where('title', isEqualTo: eventTitle).get();
+    statusRequest = handlingApiData(collectionReference);
 
     if (statusRequest == StatusRequest.success) {
-      eventTitle = response[0]['title'];
-      startDat = response[0]['start_date'];
-      endDate = response[0]['end_date'];
-      image = response[0]['image'];
-    }
+      if (querySnapshot.docs.isNotEmpty) {
+        print("================= sucess");
+        var response = querySnapshot.docs.first.data() as Map;
+        eventTitle = response['title'];
+        startDat = response['start_date'];
+        endDate = response['end_date'];
+        image = response['image'];
+      } else {}
+    } else {}
     update();
   }
 
   @override
   void onInit() {
     //print("==================${appServices.sharedPreferences.getString("id")}");
+
+    eventTitle = Get.arguments['title'];
     getData();
     super.onInit();
   }

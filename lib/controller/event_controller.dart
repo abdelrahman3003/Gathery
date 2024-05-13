@@ -18,18 +18,22 @@ abstract class CeateEventController extends GetxController {
   Future<void> pickImage();
   selectImage();
   safeData();
+  onSecure();
 }
 
 class CeateEventControllerImp extends CeateEventController {
-  AppServices appServices = AppServices();
+   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AppServices appServices = Get.find();
   Crud crud = Crud();
   StatusRequest statusRequest = StatusRequest.none;
+  bool isSecurePassword = true;
   DateTime selectedStartDate = DateTime.now();
   DateTime selectedEndDate = DateTime.now();
   TextEditingController textEditingTitleController = TextEditingController();
   TextEditingController textEditingSatrtDateController =
       TextEditingController();
   TextEditingController textEditingEndDateController = TextEditingController();
+  TextEditingController textEditingPassordController = TextEditingController();
 
   final ImagePicker imgpicker = ImagePicker();
   String? imagePath;
@@ -106,8 +110,8 @@ class CeateEventControllerImp extends CeateEventController {
 
   @override
   safeData() async {
-    print("======== 33333${textEditingTitleController.text}");
-    statusRequest = StatusRequest.loading;
+   if (formKey.currentState!.validate()) {
+      statusRequest = StatusRequest.loading;
     update();
     EventsData eventsData = EventsData(Get.find());
     statusRequest = await eventsData.safeData(
@@ -116,13 +120,12 @@ class CeateEventControllerImp extends CeateEventController {
         endDate: textEditingEndDateController.text,
         startDate: textEditingSatrtDateController.text,
         image: image!,
-        members: [
-          "mmohamed@gmail.com",
-          "hassan@gmail.com",
-          "khalid@gmail.com",
-        ]);
+        members: ["mmohamed@gmail.com", "hassan@gmail.com", "khalid@gmail.com"],
+        password: textEditingPassordController.text);
+    print("=======================");
     if (statusRequest == StatusRequest.success) {
-      Get.offNamed(kBottomNavigationScreen);
+      Get.offNamed(kBottomNavigationScreen,
+          arguments: {'title': textEditingTitleController.text});
       Get.rawSnackbar(
           title: "Sucess",
           backgroundColor: Colors.grey,
@@ -143,6 +146,14 @@ class CeateEventControllerImp extends CeateEventController {
       );
       update();
     }
+    update();
+
+   }
+     }
+
+  @override
+  onSecure() {
+    isSecurePassword = !isSecurePassword;
     update();
   }
 }
