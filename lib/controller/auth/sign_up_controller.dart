@@ -17,20 +17,21 @@ abstract class SignUpController extends GetxController {
 
 class SignUpControllerImp extends SignUpController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController(text: "abdo");
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController =
-      TextEditingController(text: "abdo@gmail.com");
+      TextEditingController();
   TextEditingController passwordController =
-      TextEditingController(text: "123456");
+      TextEditingController();
   bool isScurePassword = true;
   FirebaseAuthServices authServices = FirebaseAuthServices();
   StatusRequest statusRequest = StatusRequest.none;
   Crud crud = Crud();
   @override
   void signUp() async {
-    statusRequest = StatusRequest.loading;
-    update();
+  
     if (formKey.currentState!.validate()) {
+        statusRequest = StatusRequest.loading;
+    update();
       getUsers();
       User? user = await authServices.signUPwithEmailandPassword(
           emailController.text, passwordController.text);

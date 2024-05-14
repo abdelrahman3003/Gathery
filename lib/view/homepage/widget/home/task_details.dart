@@ -28,10 +28,6 @@ class TaskDetailsView extends StatelessWidget {
                     tilte: "Assign UserName", subtilte: "name of user"),
                 const ItemTextTaskDeatils(
                     tilte: "Task Name", subtilte: "name of task"),
-                const ItemTextTaskDeatils(
-                    tilte: "Start task date", subtilte: "date of start task"),
-                const ItemTextTaskDeatils(
-                    tilte: "End task date", subtilte: "date of start task"),
                 const SizedBox(height: 20),
                 Text(
                   "Subtasks",

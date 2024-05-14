@@ -14,10 +14,9 @@ class BottomNavigationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(ButtonNavigatorBarControllerImp());
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: GetBuilder<ButtonNavigatorBarControllerImp>(builder: (controller) {
         return Scaffold(
-           
             appBar: PreferredSize(
               preferredSize: controller.pageCount == 0
                   ? Size.fromHeight(100.h)
@@ -33,7 +32,8 @@ class BottomNavigationScreen extends StatelessWidget {
                 bottom: controller.pageCount == 0
                     ? const TabBar(tabs: [
                         Tab(text: "About"),
-                        Tab(text: "Tasks"),
+                        Tab(text: "All Tasks"),
+                        Tab(text: "My tasks"),
                       ])
                     : const PreferredSize(
                         preferredSize: Size.zero, child: SizedBox()),

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:note_app/core/constatnt/handling%20_data.dart';
+import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/data/dataSource/task/task_data.dart';
 
@@ -8,20 +11,18 @@ abstract class AddTaskController extends GetxController {
   addTask();
   onChangeDropDownMember(String val);
   clearFileds();
+  getMembers();
 }
 
 class AddTaskControllerImp extends AddTaskController {
   int task = 1;
   StatusRequest statusRequest = StatusRequest.none;
+  StatusRequest statusRequest1 = StatusRequest.none;
   TaskData taskData = TaskData(Get.find());
+  AppServices appServices = Get.find();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  List<String> members = [
-    'member1',
-    'member2',
-    'member3',
-    'member4',
-  ];
+  List<String> members = [];
   String memberValue = "";
   double num = 5.0;
   TextEditingController titleController = TextEditingController();
@@ -40,8 +41,15 @@ class AddTaskControllerImp extends AddTaskController {
       update();
       List<String> enteredDataList =
           optionTextFieldList.map((controller) => controller.text).toList();
+      TextEditingController titleController =
+          TextEditingController(text: "abdo");
       statusRequest = await taskData.addTask(
-          memberValue, titleController.text, num, enteredDataList);
+        event: appServices.sharedPreferences.getString("event")!,
+        member: memberValue,
+        options: enteredDataList,
+        optionsFinished: [],
+        title: titleController.text,
+      );
       if (statusRequest == StatusRequest.success) {
         Get.rawSnackbar(
             backgroundColor: Colors.grey,
@@ -70,6 +78,52 @@ class AddTaskControllerImp extends AddTaskController {
 
   @override
   void onInit() {
+    getMembers();
     super.onInit();
+  }
+
+  @override
+  getMembers() async {
+    try {
+      // Query for the document with the matching title
+      statusRequest1 = StatusRequest.loading;
+      update();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Events') // Replace with your collection name
+          .where('title',
+              isEqualTo: appServices.sharedPreferences.getString("event"))
+          .get();
+      statusRequest1 = handlingApiData(querySnapshot);
+      // Check if the document exists
+      if (statusRequest1 == StatusRequest.success) {
+        if (querySnapshot.docs.isNotEmpty) {
+          // Get the first document from the query result
+          DocumentSnapshot docSnapshot = querySnapshot.docs.first;
+
+          // Cast the data to a Map<String, dynamic>
+          Map<String, dynamic>? data =
+              docSnapshot.data() as Map<String, dynamic>?;
+
+          // Check if the data is not null and contains the list field
+          if (data != null && data.containsKey('members')) {
+            // Access the value of the list field
+            members = List<String>.from(data['members']);
+            update();
+            return members;
+          } else {
+            print(
+                'List field members not found in document with title members');
+            return []; // Return an empty list if list field not found
+          }
+        } else {
+          print('Document with title event not found');
+          return []; // Return an empty list if document not found
+        }
+      }
+      update();
+    } catch (e) {
+      print('Error getting items from list: $e');
+      return []; // Return an empty list if there's an error
+    }
   }
 }

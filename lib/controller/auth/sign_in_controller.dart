@@ -16,18 +16,20 @@ class SignInControllerImp extends SignInController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isScurePassword = true;
   TextEditingController emailController =
-      TextEditingController(text: "abdo@gmail.com");
+      TextEditingController();
   TextEditingController passwordController =
-      TextEditingController(text: "123456");
+      TextEditingController();
   FirebaseAuthServices authServices = FirebaseAuthServices();
   StatusRequest statusRequest = StatusRequest.none;
   Crud crud = Crud();
   AppServices appServices = Get.find();
   @override
   void signIn() async {
-    statusRequest = StatusRequest.loading;
-    update();
+    
+   
     if (formKey.currentState!.validate()) {
+      statusRequest = StatusRequest.loading;
+       update();
       User? user = await authServices.signInwithEmailandPassword(
           emailController.text, passwordController.text);
       if (user != null) {

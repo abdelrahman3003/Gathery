@@ -16,7 +16,9 @@ class AboutControllerImp extends AboutController {
   String eventTitle = "";
   String startDat = "";
   String endDate = "";
+  int numMebmers = 0;
   String? image;
+
   @override
   getData() async {
     statusRequest = StatusRequest.loading;
@@ -34,6 +36,7 @@ class AboutControllerImp extends AboutController {
         startDat = response['start_date'];
         endDate = response['end_date'];
         image = response['image'];
+        numMebmers = List<String>.from(response['members']).length;
       } else {}
     } else {}
     update();

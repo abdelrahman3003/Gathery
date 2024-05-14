@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/view/homepage/widget/home/about.dart';
+import 'package:note_app/view/homepage/widget/home/mytask_view.dart';
 import 'package:note_app/view/homepage/widget/home/tasks_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,7 +15,11 @@ class HomeView extends StatelessWidget {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: TasksView(),
-      )
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: MyTaskView(),
+      ),
     ]);
   }
 }

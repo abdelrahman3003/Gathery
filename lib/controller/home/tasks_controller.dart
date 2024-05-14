@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
@@ -34,19 +35,24 @@ class TasksControllerImp extends TasksController {
     Get.toNamed(kTaskDetailsView);
   }
 
+  @override
   void fetchTasks() async {
-    statusRequest = StatusRequest.loading;
     try {
+      statusRequest = StatusRequest.loading;
+      update();
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await FirebaseFirestore.instance.collection('Tasks').get();
-      taskModelList = querySnapshot.docs.map((doc) {
-        return TaskModel(
-          num: doc.data()['num'] ?? 10,
-          taskName: doc.data()['title'] ?? '',
-          user: doc.data()['member'] ?? '',
-        );
-      }).toList();
-      print("==============${taskModelList.length}");
+
+      statusRequest = handlingApiData(querySnapshot);
+      if (statusRequest == StatusRequest.success) {
+        if (querySnapshot.docs.isNotEmpty) {
+          querySnapshot.docs.forEach((doc) {
+            TaskModel task = TaskModel.fromDocument(doc);
+            taskModelList.add(task);
+          });
+        }
+      }
+          update();
     } catch (error) {
       statusRequest = StatusRequest.loading;
       print('Error getting tasks: $error');

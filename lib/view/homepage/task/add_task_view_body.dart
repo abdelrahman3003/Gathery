@@ -30,35 +30,39 @@ class AddTaskViewBody extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: AppColor.third,
-                      borderRadius: BorderRadius.circular(30)),
-                  child: DropdownButton(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                    dropdownColor: AppColor.third,
-                    value: controller.memberValue.isNotEmpty
-                        ? controller.memberValue
-                        : null, // guard it with null if empty
-                    hint: Text(
-                      'Your Section',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+                DataHandlingState(
+                  statusRequest: controller.statusRequest1,
+                  widget: Container(
+                    decoration: BoxDecoration(
+                        color: AppColor.third,
+                        borderRadius: BorderRadius.circular(30)),
+                    child: DropdownButton(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 5),
+                      dropdownColor: AppColor.third,
+                      value: controller.memberValue.isNotEmpty
+                          ? controller.memberValue
+                          : null, // guard it with null if empty
+                      hint: Text(
+                        'Your Section',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
+                      isExpanded: true,
+                      underline: const SizedBox(),
+                      icon: const Icon(Icons.keyboard_arrow_down,
+                          color: Colors.black),
+                      iconSize: 30,
+                      items: controller.members.map((String items) {
+                        return DropdownMenuItem(
+                            value: items, child: Text(items));
+                      }).toList(),
+                      onChanged: (val) {
+                        controller.onChangeDropDownMember(val.toString());
+                      },
                     ),
-                    isExpanded: true,
-                    underline: const SizedBox(),
-                    icon: const Icon(Icons.keyboard_arrow_down,
-                        color: Colors.black),
-                    iconSize: 30,
-                    items: controller.members.map((String items) {
-                      return DropdownMenuItem(value: items, child: Text(items));
-                    }).toList(),
-                    onChanged: (val) {
-                      controller.onChangeDropDownMember(val.toString());
-                    },
                   ),
                 ),
                 Text(
@@ -84,9 +88,6 @@ class AddTaskViewBody extends StatelessWidget {
                             BorderSide(color: AppColor.third, width: 1.3.h),
                         borderRadius: BorderRadius.circular(250)),
                   ),
-                  validator: (val) {
-                    return validation(type: "Username", val: val!);
-                  },
                 ),
                 const SizedBox(height: 10),
                 Row(

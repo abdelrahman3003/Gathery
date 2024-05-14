@@ -6,13 +6,13 @@ import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/dataSource/event/events_data.dart';
 import 'package:note_app/data/dataSource/event/join_event_data.dart';
 
 abstract class JoinEventController extends GetxController {
   changePage();
   securePassword();
   join();
+  addUser();
 }
 
 class JoinEventControllerImp extends JoinEventController {
@@ -24,7 +24,7 @@ class JoinEventControllerImp extends JoinEventController {
   AppServices appServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   TextEditingController textEditingTitlController =
-      TextEditingController(text: "abdo");
+      TextEditingController(text: "abdo@gmail.com");
   TextEditingController textEditingPasswordController =
       TextEditingController(text: "123456");
   @override
@@ -59,14 +59,18 @@ class JoinEventControllerImp extends JoinEventController {
 
       if (statusRequest == StatusRequest.success) {
         CollectionReference collectionReference = response;
-        QuerySnapshot querySnapshot=await collectionReference.where('title', isEqualTo: textEditingTitlController.text).get();
+        QuerySnapshot querySnapshot = await collectionReference
+            .where('title', isEqualTo: textEditingTitlController.text)
+            .get();
         if (querySnapshot.docs.isNotEmpty) {
           print("====================== 1");
           if (querySnapshot.docs.first['password'] ==
               textEditingPasswordController.text) {
             Get.offNamed(kBottomNavigationScreen,
                 arguments: {'title': textEditingTitlController.text});
-
+            appServices.sharedPreferences
+                .setString("event", textEditingTitlController.text);
+            await addUser();
             Get.rawSnackbar(
                 title: "Sucess",
                 backgroundColor: Colors.grey,
@@ -97,6 +101,34 @@ class JoinEventControllerImp extends JoinEventController {
         update();
       }
       update();
+    }
+  }
+
+  @override
+  addUser() async {
+    statusRequest = StatusRequest.loading;
+    try {
+      // Query for the document with the matching title
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Events')
+          .where('title', isEqualTo: textEditingTitlController.text)
+          .get();
+
+      // Check if the document exists
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the reference to the document
+        DocumentReference docRef = querySnapshot.docs.first.reference;
+
+        // Update the document
+        await docRef.update({
+          'members': FieldValue.arrayUnion(
+              [appServices.sharedPreferences.getString("id")])
+        });
+      } else {
+        print('Document with title "title" not found');
+      }
+    } catch (e) {
+      print('Error adding item to list: $e');
     }
   }
 }

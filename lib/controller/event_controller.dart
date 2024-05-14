@@ -22,7 +22,7 @@ abstract class CeateEventController extends GetxController {
 }
 
 class CeateEventControllerImp extends CeateEventController {
-   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AppServices appServices = Get.find();
   Crud crud = Crud();
   StatusRequest statusRequest = StatusRequest.none;
@@ -110,46 +110,47 @@ class CeateEventControllerImp extends CeateEventController {
 
   @override
   safeData() async {
-   if (formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
-    update();
-    EventsData eventsData = EventsData(Get.find());
-    statusRequest = await eventsData.safeData(
-        title: textEditingTitleController.text,
-        admin: appServices.sharedPreferences.getString("id")!,
-        endDate: textEditingEndDateController.text,
-        startDate: textEditingSatrtDateController.text,
-        image: image!,
-        members: ["mmohamed@gmail.com", "hassan@gmail.com", "khalid@gmail.com"],
-        password: textEditingPassordController.text);
-    print("=======================");
-    if (statusRequest == StatusRequest.success) {
-      Get.offNamed(kBottomNavigationScreen,
-          arguments: {'title': textEditingTitleController.text});
-      Get.rawSnackbar(
-          title: "Sucess",
-          backgroundColor: Colors.grey,
-          messageText: const Text(
-            "now you is event admin",
-            style: TextStyle(color: AppColor.white),
-          ));
-    } else if (statusRequest == StatusRequest.failure) {
-      Get.defaultDialog(
-        title: "error",
-        middleText: "change this image",
-      );
       update();
-    } else {
-      Get.defaultDialog(
-        title: "error",
-        middleText: "invalid data",
-      );
+      EventsData eventsData = EventsData(Get.find());
+      statusRequest = await eventsData.safeData(
+          title: textEditingTitleController.text,
+          admin: appServices.sharedPreferences.getString("id")!,
+          endDate: textEditingEndDateController.text,
+          startDate: textEditingSatrtDateController.text,
+          image: image!,
+          members: [appServices.sharedPreferences.getString("id")!],
+          password: textEditingPassordController.text);
+      print("=======================");
+      if (statusRequest == StatusRequest.success) {
+        Get.offNamed(kBottomNavigationScreen,
+            arguments: {'title': textEditingTitleController.text});
+        Get.rawSnackbar(
+            title: "Sucess",
+            backgroundColor: Colors.grey,
+            messageText: const Text(
+              "now you is event admin",
+              style: TextStyle(color: AppColor.white),
+            ));
+        appServices.sharedPreferences
+            .setString("event", textEditingTitleController.text);
+      } else if (statusRequest == StatusRequest.failure) {
+        Get.defaultDialog(
+          title: "error",
+          middleText: "change this image",
+        );
+        update();
+      } else {
+        Get.defaultDialog(
+          title: "error",
+          middleText: "invalid data",
+        );
+        update();
+      }
       update();
     }
-    update();
-
-   }
-     }
+  }
 
   @override
   onSecure() {

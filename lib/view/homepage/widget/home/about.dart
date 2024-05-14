@@ -19,7 +19,7 @@ class About extends StatelessWidget {
           AboutItem(title: "Event title", text: controller.eventTitle),
           AboutItem(title: "Event start date", text: controller.startDat),
           AboutItem(title: "Event end date", text: controller.endDate),
-          const AboutItem(title: "Member number", text: "5"),
+          AboutItem(title: "Member number", text: "${controller.numMebmers}"),
           const SizedBox(height: 20),
           Container(
               height: 180.h,
@@ -38,7 +38,7 @@ class About extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-       //   const MessageText()
+          //   const MessageText()
         ],
       );
     });

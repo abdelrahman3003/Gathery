@@ -3,17 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/controller/home/tasks_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:get/get.dart';
+import 'package:note_app/data/model/task_model.dart';
 
 class TaskItem extends GetView<TasksControllerImp> {
-  const TaskItem({
-    super.key,
-    required this.currentValue,
-    required this.userName,
-    required this.taskName,
-  });
-  final double currentValue;
-  final String userName;
-  final String taskName;
+  const TaskItem({super.key, required this.taskModel});
+  final TaskModel taskModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +28,12 @@ class TaskItem extends GetView<TasksControllerImp> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    userName,
+                    taskModel.user,
                     style:
                         TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    taskName,
+                    taskModel.taskName,
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),
@@ -48,11 +42,11 @@ class TaskItem extends GetView<TasksControllerImp> {
               ),
               const SizedBox(height: 20),
               Slider(
-                value: currentValue,
+                value: 20,
                 onChanged: (val) {},
                 max: 100,
                 divisions: 5,
-                label: currentValue.round().toString(),
+                label: 20.round().toString(),
               )
             ],
           )),
