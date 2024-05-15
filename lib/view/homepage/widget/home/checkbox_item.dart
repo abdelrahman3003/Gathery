@@ -26,7 +26,7 @@ class CheckBoxItem extends GetView<TaskDetailsControllerImp> {
         Checkbox(
           value: value,
           onChanged: (value) {
-            controller.changeActive(title, value);
+            controller.changeActive(title, value!);
           },
           activeColor: AppColor.primary,
         )

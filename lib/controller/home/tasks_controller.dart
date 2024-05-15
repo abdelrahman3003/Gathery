@@ -2,20 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:get/get.dart';
+import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/dataSource/task/task_data.dart';
+import 'package:note_app/data/dataSource/remote/task/task_data.dart';
 import 'package:note_app/data/model/task_model.dart';
 
 abstract class TasksController extends GetxController {
   fetchTasks();
   changeSlider(double val);
-  goToTaskDetails();
+  goToTaskDetails(String assignuser);
 }
 
 class TasksControllerImp extends TasksController {
   StatusRequest statusRequest = StatusRequest.none;
+  AppServices appServices = Get.find();
   TaskData taskData = TaskData(Get.find());
-  double? currentValue;
+  double currentValue = 5;
   List<TaskModel> taskModelList = [];
   @override
   void onInit() {
@@ -31,19 +33,29 @@ class TasksControllerImp extends TasksController {
   }
 
   @override
-  goToTaskDetails() {
-    Get.toNamed(kTaskDetailsView);
+  goToTaskDetails(String assignuser) {
+    Get.toNamed(kTaskDetailsView, arguments: {"assignuser": assignuser});
   }
 
   @override
   void fetchTasks() async {
     try {
+      print(
+          "==================${appServices.sharedPreferences.getString("event")}");
       statusRequest = StatusRequest.loading;
       update();
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance.collection('Tasks').get();
-
+          await FirebaseFirestore.instance
+              .collection('Tasks')
+              .where('event',
+                  isEqualTo: appServices.sharedPreferences.getString("event"))
+              .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        print(
+            "========= event  ${appServices.sharedPreferences.getString("event")}");
+      }
       statusRequest = handlingApiData(querySnapshot);
+      if (querySnapshot.docs.isNotEmpty) {}
       if (statusRequest == StatusRequest.success) {
         if (querySnapshot.docs.isNotEmpty) {
           querySnapshot.docs.forEach((doc) {
@@ -52,7 +64,7 @@ class TasksControllerImp extends TasksController {
           });
         }
       }
-          update();
+      update();
     } catch (error) {
       statusRequest = StatusRequest.loading;
       print('Error getting tasks: $error');

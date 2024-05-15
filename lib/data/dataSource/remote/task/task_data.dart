@@ -10,6 +10,7 @@ class TaskData {
     required List<String> options,
     required List<String> optionsFinished,
     required String event,
+    required double sliderValue,
   }) async {
     return await crud.postData("Tasks", {
       "member": member,
@@ -17,6 +18,7 @@ class TaskData {
       "option": options,
       "optionFinished": optionsFinished,
       'event': event,
+      'sliderValue':sliderValue
     });
   }
 

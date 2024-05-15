@@ -4,7 +4,7 @@ import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/dataSource/task/task_data.dart';
+import 'package:note_app/data/dataSource/remote/task/task_data.dart';
 import 'package:note_app/data/model/task_model.dart';
 
 abstract class MyTaskSController extends GetxController {

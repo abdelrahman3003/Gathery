@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/dataSource/task/task_data.dart';
+import 'package:note_app/data/dataSource/remote/task/task_data.dart';
 
 abstract class AddTaskController extends GetxController {
   addCheck();
@@ -24,7 +24,7 @@ class AddTaskControllerImp extends AddTaskController {
 
   List<String> members = [];
   String memberValue = "";
-  double num = 5.0;
+  double sliderValue = 5.0;
   TextEditingController titleController = TextEditingController();
   TextEditingController optionController = TextEditingController();
   List<TextEditingController> optionTextFieldList = [TextEditingController()];
@@ -36,20 +36,19 @@ class AddTaskControllerImp extends AddTaskController {
 
   @override
   addTask() async {
+    print("===========${titleController.text}");
     if (formKey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
       List<String> enteredDataList =
           optionTextFieldList.map((controller) => controller.text).toList();
-      TextEditingController titleController =
-          TextEditingController(text: "abdo");
       statusRequest = await taskData.addTask(
-        event: appServices.sharedPreferences.getString("event")!,
-        member: memberValue,
-        options: enteredDataList,
-        optionsFinished: [],
-        title: titleController.text,
-      );
+          event: appServices.sharedPreferences.getString("event")!,
+          member: memberValue,
+          options: enteredDataList,
+          optionsFinished: [],
+          title: titleController.text,
+          sliderValue: sliderValue);
       if (statusRequest == StatusRequest.success) {
         Get.rawSnackbar(
             backgroundColor: Colors.grey,

@@ -34,4 +34,8 @@ class EventsData {
     var response = await crud.getLast("Events");
     return response.fold((l) => l, (r) => r);
   }
+    getDataTaskDetails() async {
+    var response = await crud.getLast("Tasks");
+    return response.fold((l) => l, (r) => r);
+  }
 }

@@ -4,7 +4,7 @@ import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/dataSource/auth/firebase_auth.dart';
+import 'package:note_app/data/dataSource/remote/auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 abstract class SignInController extends GetxController {
@@ -15,26 +15,21 @@ abstract class SignInController extends GetxController {
 class SignInControllerImp extends SignInController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isScurePassword = true;
-  TextEditingController emailController =
-      TextEditingController();
-  TextEditingController passwordController =
-      TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   FirebaseAuthServices authServices = FirebaseAuthServices();
   StatusRequest statusRequest = StatusRequest.none;
   Crud crud = Crud();
   AppServices appServices = Get.find();
   @override
   void signIn() async {
-    
-   
     if (formKey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
-       update();
+      update();
       User? user = await authServices.signInwithEmailandPassword(
           emailController.text, passwordController.text);
       if (user != null) {
-        appServices.sharedPreferences
-            .setString("id",emailController.text);
+        appServices.sharedPreferences.setString("id", emailController.text);
         Get.rawSnackbar(
             backgroundColor: Colors.grey,
             title: "Suceessfully login",

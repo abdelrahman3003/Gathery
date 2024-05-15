@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/dataSource/event/events_data.dart';
+import 'package:note_app/data/dataSource/remote/event/events_data.dart';
 
 abstract class AboutController extends GetxController {
   getData();
@@ -43,9 +43,10 @@ class AboutControllerImp extends AboutController {
   }
 
   @override
-  void onInit() {
+  void onInit() async{
     //print("==================${appServices.sharedPreferences.getString("id")}");
-
+    print(
+        "======================= isadmin ${await appServices.sharedPreferences.getBool("admin")}");
     eventTitle = Get.arguments['title'];
     getData();
     super.onInit();

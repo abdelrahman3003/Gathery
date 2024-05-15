@@ -13,12 +13,14 @@ class TasksView extends StatelessWidget {
     return GetBuilder<TasksControllerImp>(builder: (controller) {
       return DataHandlingState(
           statusRequest: controller.statusRequest,
-          widget: ListView.builder(
-            itemCount: controller.taskModelList.length,
-            itemBuilder: (context, index) => TaskItem(
-              taskModel: controller.taskModelList[index],
-            ),
-          ));
+          widget: controller.taskModelList.isNotEmpty
+              ? ListView.builder(
+                  itemCount: controller.taskModelList.length,
+                  itemBuilder: (context, index) => TaskItem(
+                    taskModel: controller.taskModelList[index],
+                  ),
+                )
+              : Center(child: Text("no task found")));
     });
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/controller/home/tasks_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:get/get.dart';
+import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/data/model/task_model.dart';
 
 class TaskItem extends GetView<TasksControllerImp> {
@@ -12,7 +13,15 @@ class TaskItem extends GetView<TasksControllerImp> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: controller.goToTaskDetails,
+      onTap: () {
+        if (controller.appServices.sharedPreferences.getBool("admin")! ||
+            taskModel.user ==
+                controller.appServices.sharedPreferences.getString("id")) {
+          Get.toNamed(kTaskDetailsView, arguments: {
+            'taskModel': taskModel,
+          });
+        }
+      },
       child: Container(
           height: 120.h,
           margin: const EdgeInsets.symmetric(vertical: 8),
@@ -42,11 +51,11 @@ class TaskItem extends GetView<TasksControllerImp> {
               ),
               const SizedBox(height: 20),
               Slider(
-                value: 20,
+                value: taskModel.sliderValue,
                 onChanged: (val) {},
                 max: 100,
                 divisions: 5,
-                label: 20.round().toString(),
+                label: controller.currentValue.round().toString(),
               )
             ],
           )),

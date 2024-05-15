@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,13 +8,15 @@ import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
-import 'package:note_app/data/dataSource/event/join_event_data.dart';
+import 'package:note_app/data/dataSource/remote/event/join_event_data.dart';
 
 abstract class JoinEventController extends GetxController {
   changePage();
   securePassword();
   join();
   addUser();
+  checkAdmin();
+  getMebers();
 }
 
 class JoinEventControllerImp extends JoinEventController {
@@ -23,10 +27,10 @@ class JoinEventControllerImp extends JoinEventController {
   JoinEvent joinEvent = JoinEvent(Get.find());
   AppServices appServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
-  TextEditingController textEditingTitlController =
-      TextEditingController(text: "abdo@gmail.com");
-  TextEditingController textEditingPasswordController =
-      TextEditingController(text: "123456");
+  TextEditingController textEditingTitlController = TextEditingController();
+  TextEditingController textEditingPasswordController = TextEditingController();
+  List<String> members = [];
+  StatusRequest statusRequest1 = StatusRequest.none;
   @override
   changePage() {
     isJoined = !isJoined;
@@ -62,14 +66,16 @@ class JoinEventControllerImp extends JoinEventController {
         QuerySnapshot querySnapshot = await collectionReference
             .where('title', isEqualTo: textEditingTitlController.text)
             .get();
+
         if (querySnapshot.docs.isNotEmpty) {
-          print("====================== 1");
+      
           if (querySnapshot.docs.first['password'] ==
               textEditingPasswordController.text) {
-            Get.offNamed(kBottomNavigationScreen,
+            Get.offAllNamed(kBottomNavigationScreen,
                 arguments: {'title': textEditingTitlController.text});
             appServices.sharedPreferences
                 .setString("event", textEditingTitlController.text);
+            await checkAdmin();
             await addUser();
             Get.rawSnackbar(
                 title: "Sucess",
@@ -129,6 +135,79 @@ class JoinEventControllerImp extends JoinEventController {
       }
     } catch (e) {
       print('Error adding item to list: $e');
+    }
+  }
+
+  @override
+  checkAdmin() async {
+    print("================ check admin");
+    try {
+      // Query for the document with the matching title
+      var user = appServices.sharedPreferences.getString("id");
+      print("=================== $user");
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Events')
+          .where("admin", isEqualTo: user)
+          .get();
+
+      // Check if the document exists
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the reference to the document
+        print("================ admin excute");
+
+        await appServices.sharedPreferences.setBool("admin", true);
+      } else {
+        print("================ admin excute   false");
+        await appServices.sharedPreferences.setBool("admin", false);
+      }
+      update();
+    } catch (e) {
+      print('Error adding item to admin email: $e');
+    }
+  }
+
+  @override
+  getMebers() async {
+    try {
+      // Query for the document with the matching title
+      statusRequest1 = StatusRequest.loading;
+      update();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Events') // Replace with your collection name
+          .where('title',
+              isEqualTo: appServices.sharedPreferences.getString("event"))
+          .get();
+      statusRequest1 = handlingApiData(querySnapshot);
+      // Check if the document exists
+      if (statusRequest1 == StatusRequest.success) {
+        if (querySnapshot.docs.isNotEmpty) {
+          // Get the first document from the query result
+          DocumentSnapshot docSnapshot = querySnapshot.docs.first;
+
+          // Cast the data to a Map<String, dynamic>
+          Map<String, dynamic>? data =
+              docSnapshot.data() as Map<String, dynamic>?;
+
+          // Check if the data is not null and contains the list field
+          if (data != null && data.containsKey('members')) {
+            // Access the value of the list field
+            members = List<String>.from(data['members']);
+            update();
+            return members;
+          } else {
+            print(
+                'List field members not found in document with title members');
+            return []; // Return an empty list if list field not found
+          }
+        } else {
+          print('Document with title event not found');
+          return []; // Return an empty list if document not found
+        }
+      }
+      update();
+    } catch (e) {
+      print('Error getting items from list: $e');
+      return []; // Return an empty list if there's an error
     }
   }
 }
