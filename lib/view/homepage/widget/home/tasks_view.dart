@@ -10,17 +10,19 @@ class TasksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(TasksControllerImp());
-    return GetBuilder<TasksControllerImp>(builder: (controller) {
-      return DataHandlingState(
-          statusRequest: controller.statusRequest,
-          widget: controller.taskModelList.isNotEmpty
-              ? ListView.builder(
-                  itemCount: controller.taskModelList.length,
-                  itemBuilder: (context, index) => TaskItem(
-                    taskModel: controller.taskModelList[index],
-                  ),
-                )
-              : Center(child: Text("no task found")));
-    });
+    return GetBuilder<TasksControllerImp>(
+        dispose: (state) => Get.delete<TasksControllerImp>(),
+        builder: (controller) {
+          return DataHandlingState(
+              statusRequest: controller.statusRequest,
+              widget: controller.taskModelList.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: controller.taskModelList.length,
+                      itemBuilder: (context, index) => TaskItem(
+                        taskModel: controller.taskModelList[index],
+                      ),
+                    )
+                  : Center(child: Text("no task found")));
+        });
   }
 }

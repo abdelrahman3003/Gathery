@@ -96,44 +96,7 @@ class AddTaskViewBody extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Text(
-                      "Task checkbox  ",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      "  (optional)",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const ListAddedTask(),
                 const SizedBox(height: 20),
-                Center(
-                  child: InkWell(
-                    onTap: controller.addCheck,
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50.h, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: AppColor.third,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Icon(
-                        Icons.add,
-                        color: AppColor.primary,
-                      ),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 20),
                 Center(
                   child: Container(

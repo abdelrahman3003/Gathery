@@ -40,8 +40,7 @@ class TasksControllerImp extends TasksController {
   @override
   void fetchTasks() async {
     try {
-      print(
-          "==================${appServices.sharedPreferences.getString("event")}");
+
       statusRequest = StatusRequest.loading;
       update();
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -51,8 +50,7 @@ class TasksControllerImp extends TasksController {
                   isEqualTo: appServices.sharedPreferences.getString("event"))
               .get();
       if (querySnapshot.docs.isNotEmpty) {
-        print(
-            "========= event  ${appServices.sharedPreferences.getString("event")}");
+     
       }
       statusRequest = handlingApiData(querySnapshot);
       if (querySnapshot.docs.isNotEmpty) {}

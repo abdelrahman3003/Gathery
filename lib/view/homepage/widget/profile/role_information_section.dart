@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:note_app/controller/prifile_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:note_app/view/homepage/widget/profile/tilte_value_row.dart';
 
-class RoleInformationSection extends StatelessWidget {
+class RoleInformationSection extends GetView<ProfileControolerImp> {
   const RoleInformationSection({super.key});
 
   @override
@@ -21,11 +23,15 @@ class RoleInformationSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           decoration: BoxDecoration(
               color: AppColor.third, borderRadius: BorderRadius.circular(16)),
-          child: const Column(
+          child: Column(
             children: [
-              TilteValueRow(tilte: "Event Leader", value: "4"),
-              TilteValueRow(tilte: "Participant", value: "2"),
-              TilteValueRow(tilte: "Funding Supporter", value: "3"),
+              TilteValueRow(
+                  tilte: "Event Leader",
+                  value: "${controller.userModel!.leader}"),
+              TilteValueRow(
+                  tilte: "Participant",
+                  value: "${controller.userModel!.participant}"),
+              TilteValueRow(tilte: "Funding Supporter", value: "0"),
             ],
           ),
         ),

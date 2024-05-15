@@ -94,13 +94,6 @@ class TaskDetailsView extends StatelessWidget {
                         divisions: 4,
                         label: controller.sliderValue.round().toString(),
                       ),
-                      Text(
-                        "Subtasks",
-                        style: TextStyle(
-                            fontSize: 18.sp, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      const Subtask(),
                       const SizedBox(height: 30),
                       controller.statusRequest == StatusRequest.loading
                           ? CircularProgressIndicator()

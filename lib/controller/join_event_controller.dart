@@ -8,6 +8,7 @@ import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
+import 'package:note_app/data/dataSource/remote/event/events_data.dart';
 import 'package:note_app/data/dataSource/remote/event/join_event_data.dart';
 
 abstract class JoinEventController extends GetxController {
@@ -17,6 +18,7 @@ abstract class JoinEventController extends GetxController {
   addUser();
   checkAdmin();
   getMebers();
+  getUser();
 }
 
 class JoinEventControllerImp extends JoinEventController {
@@ -27,10 +29,12 @@ class JoinEventControllerImp extends JoinEventController {
   JoinEvent joinEvent = JoinEvent(Get.find());
   AppServices appServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
+  EventsData eventsData = EventsData(Get.find());
   TextEditingController textEditingTitlController = TextEditingController();
   TextEditingController textEditingPasswordController = TextEditingController();
   List<String> members = [];
   StatusRequest statusRequest1 = StatusRequest.none;
+  String name = "";
   @override
   changePage() {
     isJoined = !isJoined;
@@ -40,6 +44,7 @@ class JoinEventControllerImp extends JoinEventController {
   @override
   void onInit() {
     super.onInit();
+    getUser();
   }
 
   @override
@@ -68,7 +73,6 @@ class JoinEventControllerImp extends JoinEventController {
             .get();
 
         if (querySnapshot.docs.isNotEmpty) {
-      
           if (querySnapshot.docs.first['password'] ==
               textEditingPasswordController.text) {
             Get.offAllNamed(kBottomNavigationScreen,
@@ -209,5 +213,34 @@ class JoinEventControllerImp extends JoinEventController {
       print('Error getting items from list: $e');
       return []; // Return an empty list if there's an error
     }
+  }
+
+  @override
+  getUser() async {
+    statusRequest = StatusRequest.loading;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      final QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .where('email',
+                  isEqualTo: appServices.sharedPreferences.getString("id"))
+              .get();
+      if (querySnapshot.docs.isNotEmpty) {}
+      statusRequest = handlingApiData(querySnapshot);
+
+      if (statusRequest == StatusRequest.success) {
+        if (querySnapshot.docs.isNotEmpty) {
+          name = querySnapshot.docs.first['name'];
+          print("========================$name");
+        }
+      }
+      update();
+    } catch (error) {
+      statusRequest = StatusRequest.loading;
+      print('Error getting tasks: $error');
+    }
+    update();
   }
 }

@@ -10,10 +10,8 @@ class DataHandlingState extends StatelessWidget {
   final Widget widget;
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: statusRequest == StatusRequest.loading
-          ? const CircularProgressIndicator()
-          : widget,
-    );
+    return statusRequest == StatusRequest.loading
+        ? const Center(child: CircularProgressIndicator())
+        : widget;
   }
 }

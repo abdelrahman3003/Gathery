@@ -24,7 +24,7 @@ class JoinBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello,Mona alharbi",
+                  "Hello, ${controller.name}",
                   style: TextStyle(
                     fontSize: 40.sp,
                     fontWeight: FontWeight.bold,

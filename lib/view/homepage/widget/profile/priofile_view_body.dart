@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:note_app/controller/prifile_controller.dart';
+import 'package:note_app/core/constatnt/data_handilng.dart';
 import 'package:note_app/view/homepage/widget/profile/email_address_Section.dart';
 import 'package:note_app/view/homepage/widget/profile/flowing_section.dart';
 import 'package:note_app/view/homepage/widget/profile/image_profile.dart';
@@ -10,28 +13,35 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileControolerImp());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
-        child: Column(
-          
-          children: [
-            const ImageProfile(),
-            const SizedBox(height: 20),
-            Text(
-              "Name",
-              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 10),
-            const FollowingSection(followers: "144", following: "200"),
-            const SizedBox(height: 30),
-            const Align(
-                alignment: Alignment.topLeft,
-                child: EmailAddressSection(email: "Abdelrahman30@gmail.com")),
-            const SizedBox(height: 30),
-            RoleInformationSection()
-          ],
-        ),
+        child: GetBuilder<ProfileControolerImp>(builder: (controller) {
+          return DataHandlingState(
+              statusRequest: controller.statusRequest,
+              widget: Column(
+                children: [
+                  const ImageProfile(),
+                  const SizedBox(height: 20),
+                  Text(
+                    controller.userModel!.name,
+                    style:
+                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 10),
+                  FollowingSection(
+                      followers: "${controller.userModel!.follower}",
+                      following: "${controller.userModel!.following}"),
+                  const SizedBox(height: 30),
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: EmailAddressSection(
+                          email: controller.userModel!.email)),
+                  const SizedBox(height: 30),
+                ],
+              ));
+        }),
       ),
     );
   }

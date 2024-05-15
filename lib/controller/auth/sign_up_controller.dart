@@ -45,7 +45,7 @@ class SignUpControllerImp extends SignUpController {
               "",
             ));
         statusRequest = StatusRequest.success;
-       
+
         Get.toNamed(kSignInView);
       } else {
         statusRequest = StatusRequest.failure;
@@ -71,7 +71,11 @@ class SignUpControllerImp extends SignUpController {
     statusRequest = await crud.postData('users', {
       'name': nameController.text,
       'email': emailController.text,
-      'password': passwordController.text
+      'password': passwordController.text,
+      'following': 0,
+      'follower': 0,
+      'leader': 0,
+      'participant': 0,
     });
   }
 

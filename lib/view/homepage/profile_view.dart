@@ -7,7 +7,7 @@ class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileControolerImp());
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Profile"),

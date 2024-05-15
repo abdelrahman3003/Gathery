@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 abstract class SignInController extends GetxController {
   signIn();
   onScure();
+  getUserdetails();
 }
 
 class SignInControllerImp extends SignInController {
@@ -53,5 +54,10 @@ class SignInControllerImp extends SignInController {
   onScure() {
     isScurePassword = !isScurePassword;
     update();
+  }
+  
+  @override
+  getUserdetails() {
+
   }
 }
