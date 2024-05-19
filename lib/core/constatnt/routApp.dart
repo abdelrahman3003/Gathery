@@ -6,6 +6,7 @@ import 'package:note_app/view/homepage/buttom_navigator_bar.dart';
 import 'package:note_app/view/homepage/chat_view.dart';
 import 'package:note_app/view/homepage/profile_view.dart';
 import 'package:note_app/view/homepage/votes_view.dart';
+import 'package:note_app/view/homepage/widget/chat/mebmers_view.dart';
 import 'package:note_app/view/homepage/widget/home/add_task_view.dart';
 import 'package:note_app/view/homepage/widget/home/task_details.dart';
 import 'package:note_app/view/homepage/widget/vote/add_vote_view.dart';
@@ -28,6 +29,7 @@ const kHomeView = "/HomeView";
 const kVoteView = "/KVoteView";
 const kAddVoteView = "/AddVoteView";
 const kChatView = "/ChatView";
+const kMembersView = "/MembersView";
 List<GetPage<dynamic>>? getPages = [
   GetPage(name: "/", page: () => const SplashView()),
   GetPage(name: kWelcomeView, page: () => const WelcomeView()),
@@ -44,4 +46,5 @@ List<GetPage<dynamic>>? getPages = [
   GetPage(name: kVoteView, page: () => const VotesView()),
   GetPage(name: kAddVoteView, page: () => const AddVoteView()),
   GetPage(name: kChatView, page: () => const ChatView()),
+  GetPage(name: kMembersView, page: () => const MembersView()),
 ];

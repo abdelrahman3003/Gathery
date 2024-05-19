@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:note_app/controller/chat/chat_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 
@@ -9,19 +10,66 @@ class RoleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ChatControllerImp());
     return Scaffold(
       backgroundColor: AppColor.primary,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
             const TextRole(text: "Invite participants"),
-            const TextRole(text: "Invite by link"),
-            const TextRole(text: "Manage chat"),
-            const TextRole(text: "Lock chat"),
-            const TextRole(text: "kick particpants"),
+            //     const TextRole(text: "Invite by link"),
+            //   const TextRole(text: "Manage chat"),
+            GetBuilder<ChatControllerImp>(builder: (controller) {
+              return Row(
+                children: [
+                  InkWell(
+                      onTap: () {
+                        if (!controller.appServices.sharedPreferences
+                            .getBool("admin")!) {
+                          Get.rawSnackbar(
+                              backgroundColor: Colors.grey,
+                              title: "only admin is accessed",
+                              messageText: const Text(""));
+                        }
+                      },
+                      child: const TextRole(text: "Lock chat")),
+                  const Spacer(),
+                  controller.appServices.sharedPreferences.getBool("admin")!
+                      ? Switch(
+                          value: controller.isclosed,
+                          onChanged: (newValue) {
+                            controller.chatClose(newValue);
+                            print("================== close $newValue");
+                          },
+                          activeColor:
+                              AppColor.primary, // Customize the active color
+                          activeTrackColor: AppColor
+                              .third, // Customize the track color when active
+                          inactiveThumbColor: Colors
+                              .grey, // Customize the color of the switch thumb when inactive
+                          inactiveTrackColor: Colors.grey[
+                              300], // Customize the color of the switch track when inactive
+                        )
+                      : const SizedBox()
+                ],
+              );
+            }),
+            InkWell(
+                onTap: () {
+                  if (controller.appServices.sharedPreferences
+                      .getBool("admin")!) {
+                    Get.toNamed(kMembersView);
+                  } else {
+                    Get.rawSnackbar(
+                        backgroundColor: Colors.grey,
+                        title: "only admin is accessed",
+                        messageText: const Text(""));
+                  }
+                },
+                child: const TextRole(text: "kick particpants")),
             GestureDetector(
               onTap: () {
                 Get.offNamed(kJoinEventView);

@@ -9,7 +9,7 @@ class ChatViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChatControllerImp chatController = Get.put(ChatControllerImp());
-    return  Column(
+    return Column(
       children: [
         Expanded(
           child: StreamBuilder<QuerySnapshot>(
@@ -35,7 +35,7 @@ class ChatViewBody extends StatelessWidget {
                       alignment:
                           isMe ? Alignment.centerRight : Alignment.centerLeft,
                       child: Container(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
                           color: isMe ? Colors.blue[200] : Colors.grey[200],
                           borderRadius: BorderRadius.circular(10),
@@ -47,13 +47,13 @@ class ChatViewBody extends StatelessWidget {
                           children: [
                             Text(
                               messageText,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               messageUserId,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 14,
                               ),
                             ),
@@ -67,25 +67,37 @@ class ChatViewBody extends StatelessWidget {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: chatController.messageController,
-                  decoration: InputDecoration(
-                    labelText: 'Send a message...',
-                  ),
-                ),
-              ),
-              IconButton(
-                icon: Icon(Icons.send),
-                onPressed: chatController.sendMessage,
-              ),
-            ],
-          ),
-        ),
+        GetBuilder<ChatControllerImp>(builder: (controlller) {
+          return controlller.checkClosed()
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: chatController.messageController,
+                          decoration: const InputDecoration(
+                            labelText: 'Send a message...',
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.send),
+                        onPressed: chatController.sendMessage,
+                      ),
+                    ],
+                  ))
+              : const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 18),
+                  child: Center(
+                      child: Text(
+                    "admin closed this chat",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  )),
+                );
+        }),
       ],
     );
   }

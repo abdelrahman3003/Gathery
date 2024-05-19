@@ -10,6 +10,8 @@ abstract class ChatController extends GetxController {
   sendMessage();
   Stream<QuerySnapshot> getChatStream();
   getDataGroub();
+  chatClose(bool isClose);
+  bool checkClosed();
 }
 
 class ChatControllerImp extends ChatController {
@@ -17,7 +19,7 @@ class ChatControllerImp extends ChatController {
   TextEditingController messageController = TextEditingController();
   AppServices appServices = Get.find();
   String? id;
-
+  bool isclosed = false;
   EventModel? eventModel;
   StatusRequest statusRequest = StatusRequest.none;
   @override
@@ -58,7 +60,6 @@ class ChatControllerImp extends ChatController {
             .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      print("================= not empty");
       eventModel = EventModel(
           title: querySnapshot.docs.first['title'],
           admin: querySnapshot.docs.first['admin'],
@@ -67,14 +68,24 @@ class ChatControllerImp extends ChatController {
           image: querySnapshot.docs.first['image'],
           members: querySnapshot.docs.first['members']);
       statusRequest = StatusRequest.success;
-      
+
       update();
-    } else {
-      print("=================  empty");
-      print(
-          "=================  ${appServices.sharedPreferences.getString("event")}");
-    }
+    } else {}
 
     update();
+  }
+
+  @override
+  chatClose(bool isClose) {
+    isclosed = isClose;
+    update();
+  }
+
+  @override
+  bool checkClosed() {
+    if (!isclosed && !appServices.sharedPreferences.getBool("admin")!) {
+      return false;
+    }
+    return true;
   }
 }
