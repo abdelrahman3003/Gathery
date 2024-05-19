@@ -14,7 +14,8 @@ class PopmenuVote extends StatelessWidget {
               value: 'Chating',
               child: InkWell(
                   onTap: () {
-                    Get.toNamed(kAddVoteView);
+                    Get.offNamed(kAddVoteView);
+                 
                   },
                   child: Text("add vote"))),
         ];

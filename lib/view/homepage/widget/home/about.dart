@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:note_app/controller/home/about_controller.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/view/homepage/widget/home/about_item.dart';
-import 'package:note_app/view/homepage/widget/home/messages_text.dart';
 
 class About extends StatelessWidget {
   const About({super.key});

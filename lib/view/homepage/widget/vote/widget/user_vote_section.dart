@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
@@ -11,7 +12,7 @@ class UserVoteNameSection extends StatelessWidget {
       required this.date});
   final String userName;
   final String voteName;
-  final String date;
+  final Timestamp date;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +33,7 @@ class UserVoteNameSection extends StatelessWidget {
                 ),
               ),
               Text(
-                Jiffy.parse(date).fromNow(),
+                Jiffy(date.toDate()).fromNow(),
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,

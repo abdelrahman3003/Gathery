@@ -16,10 +16,10 @@ class Subtask extends StatelessWidget {
             borderRadius: BorderRadius.circular(20), color: AppColor.third),
         child: Column(
           children: [
-            CheckBoxItem(title: "Check 1", value: controller.isActiveCheck1!),
-            CheckBoxItem(title: "Check 2", value: controller.isActiveCheck2!),
-            CheckBoxItem(title: "Check 3", value: controller.isActiveCheck3!),
-            CheckBoxItem(title: "Check 4", value: controller.isActiveCheck4!),
+            CheckBoxItem(title: "Check 1", value: controller.isActiveCheck1),
+            CheckBoxItem(title: "Check 2", value: controller.isActiveCheck2),
+            CheckBoxItem(title: "Check 3", value: controller.isActiveCheck3),
+            CheckBoxItem(title: "Check 4", value: controller.isActiveCheck4),
           ],
         ),
       );

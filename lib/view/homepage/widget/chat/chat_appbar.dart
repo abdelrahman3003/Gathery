@@ -1,37 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/controller/chat/chat_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
-import 'package:note_app/core/constatnt/assets.dart';
 import 'package:get/get.dart';
 
-class ChatAppbar extends StatelessWidget {
-  const ChatAppbar({super.key});
+class ChatAppbar extends GetView<ChatControllerImp> {
+  const ChatAppbar({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColor.primary, // WhatsApp's green color
-      leading: const Padding(
-        padding: EdgeInsets.only(left: 8),
-        child: CircleAvatar(
-          backgroundImage: AssetImage(ImageAsset.test),
-          // backgroundImage: NetworkImage(
-          //     'https://example.com/profile_picture.jpg'), // Replace with your profile picture URL
-        ),
-      ),
-      title: const Column(
+    
+      title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Group Name', // Replace with the contact's name
-            style: TextStyle(
+            controller.eventModel!.title, // Replace with the contact's name
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            '3 Members', // Replace with the contact's name
-            style: TextStyle(
+            '${controller.eventModel!.members.length} Members', // Replace with the contact's name
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -39,18 +33,6 @@ class ChatAppbar extends StatelessWidget {
         ],
       ),
       actions: [
-        // IconButton(
-        //   icon: Icon(Icons.call),
-        //   onPressed: () {
-        //     // Add action for calling
-        //   },
-        // ),
-        // IconButton(
-        //   icon: Icon(Icons.video_call),
-        //   onPressed: () {
-        //     // Add action for video calling
-        //   },
-        // ),
         PopupMenuButton<String>(
           itemBuilder: (BuildContext context) {
             return [
@@ -65,10 +47,8 @@ class ChatAppbar extends StatelessWidget {
                     const Expanded(child: Text('Chtting')),
                     GetBuilder<ChatControllerImp>(builder: (controller) {
                       return Switch(
-                        value: controller.isSwitch,
-                        onChanged: (newValue) {
-                          controller.onSwitch(newValue);
-                        },
+                        value: true,
+                        onChanged: (newValue) {},
                         activeColor:
                             AppColor.primary, // Customize the active color
                         activeTrackColor: AppColor

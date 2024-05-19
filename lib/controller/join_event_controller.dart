@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +29,10 @@ class JoinEventControllerImp extends JoinEventController {
   AppServices appServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   EventsData eventsData = EventsData(Get.find());
-  TextEditingController textEditingTitlController = TextEditingController();
-  TextEditingController textEditingPasswordController = TextEditingController();
+  TextEditingController textEditingTitlController =
+      TextEditingController(text: "event1");
+  TextEditingController textEditingPasswordController =
+      TextEditingController(text: "123456");
   List<String> members = [];
   StatusRequest statusRequest1 = StatusRequest.none;
   String name = "";

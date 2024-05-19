@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/view/homepage/home_View.dart';
-import 'package:note_app/view/homepage/vote_view.dart';
+import 'package:note_app/view/homepage/votes_view.dart';
 import 'package:note_app/view/homepage/widget/home/add_task_view.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:note_app/view/homepage/widget/role/role_view.dart';
@@ -16,7 +16,7 @@ class ButtonNavigatorBarControllerImp extends ButtonNavigatorBarController {
   List<Widget> pageList = [
     const HomeView(),
     const AddTaskView(),
-    const VoteView(),
+    const VotesView(),
     const RoleView(),
   ];
 

@@ -7,7 +7,6 @@ import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/view/event/widget/join_event/join.dart';
 import 'package:note_app/view/homepage/widget/bottom_navigate/costom_appbar.dart';
 import 'package:note_app/view/homepage/widget/home/item_text_task_details.dart';
-import 'package:note_app/view/homepage/widget/home/subtasks.dart';
 import 'package:get/get.dart';
 
 class TaskDetailsView extends StatelessWidget {

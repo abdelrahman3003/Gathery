@@ -16,12 +16,12 @@ class ProfileControolerImp extends ProfileControoler {
   AppServices appServices = Get.find();
   final ImagePicker imgpicker = ImagePicker();
   String? imagePath;
-   UserModel? userModel;
+  UserModel? userModel;
   @override
   void onInit() async {
-    statusRequest = StatusRequest.loading;
     await getData();
     super.onInit();
+    update();
   }
 
   @override
@@ -54,11 +54,8 @@ class ProfileControolerImp extends ProfileControoler {
       statusRequest = handlingApiData(querySnapshot);
 
       if (statusRequest == StatusRequest.success) {
-        print("================================= fal");
         //   print("========================== 1");
         if (querySnapshot.docs.isNotEmpty) {
-          print(
-              "======================== count ${querySnapshot.docs.first['following']}");
           userModel = UserModel(
             email: querySnapshot.docs.first['email'] ?? "",
             name: querySnapshot.docs.first['name'] ?? "",
@@ -67,13 +64,11 @@ class ProfileControolerImp extends ProfileControoler {
             leader: querySnapshot.docs.first['leader'] ?? 0,
             participant: querySnapshot.docs.first['participant'] ?? 0,
           );
-          print(
-              "========================== 2 ${querySnapshot.docs.first['email']}");
         } else {
-          print("========================== 3");
+          statusRequest = StatusRequest.loading;
         }
+        update();
       }
-      update();
     } catch (error) {
       print('Error getting tasks: $error');
     }

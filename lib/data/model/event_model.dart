@@ -3,12 +3,12 @@ import 'dart:typed_data';
 class EventModel {
   final String admin;
   final String title;
-  final List<String> members;
+  final List members;
   final String startDate;
   final String endDate;
-  final Uint8List image;
+  final String image;
 
-  EventModel( {
+  EventModel({
     required this.admin,
     required this.title,
     required this.members,

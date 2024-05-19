@@ -43,7 +43,7 @@ dependencies:
   get: ^4.6.6
   google_fonts: ^6.2.1
   image_picker: ^1.1.1
-  jiffy: ^6.2.1
+  jiffy: ^5.0.0
   shared_preferences: ^2.2.3
 
 dev_dependencies:

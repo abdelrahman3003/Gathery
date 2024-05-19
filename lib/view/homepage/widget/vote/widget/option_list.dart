@@ -14,10 +14,11 @@ class OptionsList extends StatelessWidget {
       return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: contrller.optionsNUm,
+        itemCount: contrller.optionControllers.length,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: TextFormField(
+            controller: contrller.optionControllers[index],
             decoration: InputDecoration(
               hintText: "Enter option name",
               fillColor: AppColor.third,

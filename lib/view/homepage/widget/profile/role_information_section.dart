@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:note_app/controller/prifile_controller.dart';
+import 'package:note_app/controller/profile_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:note_app/view/homepage/widget/profile/tilte_value_row.dart';
 

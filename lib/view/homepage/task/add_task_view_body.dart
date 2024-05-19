@@ -6,7 +6,6 @@ import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:note_app/core/constatnt/data_handilng.dart';
 import 'package:note_app/core/constatnt/validation.dart';
 import 'package:note_app/core/shared/app_button.dart';
-import 'package:note_app/view/homepage/widget/home/list_add_task.dart';
 
 class AddTaskViewBody extends StatelessWidget {
   const AddTaskViewBody({super.key});

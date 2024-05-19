@@ -5,7 +5,7 @@ import 'package:note_app/view/event/widget/create_event/create_event.dart';
 import 'package:note_app/view/homepage/buttom_navigator_bar.dart';
 import 'package:note_app/view/homepage/chat_view.dart';
 import 'package:note_app/view/homepage/profile_view.dart';
-import 'package:note_app/view/homepage/vote_view.dart';
+import 'package:note_app/view/homepage/votes_view.dart';
 import 'package:note_app/view/homepage/widget/home/add_task_view.dart';
 import 'package:note_app/view/homepage/widget/home/task_details.dart';
 import 'package:note_app/view/homepage/widget/vote/add_vote_view.dart';
@@ -41,7 +41,7 @@ List<GetPage<dynamic>>? getPages = [
   GetPage(name: kTaskDetailsView, page: () => const TaskDetailsView()),
   GetPage(name: kAddTaskView, page: () => const AddTaskView()),
   GetPage(name: kProfileView, page: () => const ProfileView()),
-  GetPage(name: kVoteView, page: () => const VoteView()),
+  GetPage(name: kVoteView, page: () => const VotesView()),
   GetPage(name: kAddVoteView, page: () => const AddVoteView()),
   GetPage(name: kChatView, page: () => const ChatView()),
 ];
