@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:note_app/controller/home/mytask_controller.dart';
-import 'package:note_app/core/constatnt/data_handilng.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/view/homepage/widget/home/task_item.dart';
 
@@ -19,6 +18,7 @@ class MyTaskView extends StatelessWidget {
               : ListView.builder(
                   itemCount: controller.myTaskModelList.length,
                   itemBuilder: (context, index) => TaskItem(
+                      label: controller.myTaskModelList[index].sliderValue.toString(),
                       onTap: () {
                         controller.onTapTask(index);
                       },

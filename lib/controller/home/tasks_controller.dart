@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:note_app/controller/home/mytask_controller.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:get/get.dart';
@@ -50,9 +49,9 @@ class TasksControllerImp extends TasksController {
               .where('event',
                   isEqualTo: appServices.sharedPreferences.getString("event"))
               .get();
-      if (querySnapshot.docs.isNotEmpty) {}
+     
       statusRequest = handlingApiData(querySnapshot);
-      if (querySnapshot.docs.isNotEmpty) {}
+    
       if (statusRequest == StatusRequest.success) {
         if (querySnapshot.docs.isNotEmpty) {
           querySnapshot.docs.forEach((doc) {
@@ -64,7 +63,6 @@ class TasksControllerImp extends TasksController {
       update();
     } catch (error) {
       statusRequest = StatusRequest.loading;
-      print('Error getting tasks: $error');
     }
     update();
   }
@@ -76,8 +74,6 @@ class TasksControllerImp extends TasksController {
             appServices.sharedPreferences.getString("id")) {
       Get.toNamed(kTaskDetailsView,
           arguments: {'taskModel': taskModelList[index]});
-      Get.delete<TasksControllerImp>();
-      Get.delete<MyTaskSControllerImp>();
     }
     update();
   }

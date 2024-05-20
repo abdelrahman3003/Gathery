@@ -18,6 +18,8 @@ class TasksView extends StatelessWidget {
               : ListView.builder(
                   itemCount: controller.taskModelList.length,
                   itemBuilder: (context, index) => TaskItem(
+                      label: controller.taskModelList[index].sliderValue
+                          .toString(),
                       onTap: () {
                         controller.onTapTask(index);
                       },

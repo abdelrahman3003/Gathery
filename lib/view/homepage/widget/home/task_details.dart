@@ -31,7 +31,7 @@ class TaskDetailsView extends StatelessWidget {
                       children: [
                         controller.appServices.sharedPreferences
                                 .getBool("admin")!
-                            ? Text(
+                            ? const Text(
                                 "asign anthor user",
                                 style: TextStyle(
                                   fontSize: 22,
@@ -97,8 +97,8 @@ class TaskDetailsView extends StatelessWidget {
                         ),
                         const SizedBox(height: 30),
                         controller.statusRequest == StatusRequest.loading
-                            ? CircularProgressIndicator()
-                            : SizedBox(),
+                            ? const Center(child: CircularProgressIndicator())
+                            : const SizedBox(),
                         const SizedBox(height: 30),
                         Join(
                           color: AppColor.primary,
@@ -112,7 +112,7 @@ class TaskDetailsView extends StatelessWidget {
                     ),
                   ),
                 )
-              : const CircularProgressIndicator();
+              : const Center(child: CircularProgressIndicator());
         }));
   }
 }

@@ -9,7 +9,6 @@ import 'package:note_app/data/dataSource/remote/task/task_data.dart';
 import 'package:note_app/data/model/task_model.dart';
 
 abstract class TaskDetailsController extends GetxController {
-
   getMembers();
   onChangeDropDownMember(String val);
   onchangeSlider(double value);
@@ -38,14 +37,11 @@ class TaskDetailsControllerImp extends TaskDetailsController {
 
   @override
   void onInit() {
-   
     taskModel = Get.arguments['taskModel'];
     sliderValue = taskModel.sliderValue;
     getMembers();
     super.onInit();
   }
-
- 
 
   @override
   getMembers() async {
@@ -61,9 +57,7 @@ class TaskDetailsControllerImp extends TaskDetailsController {
       statusRequest1 = handlingApiData(querySnapshot);
       // Check if the document exists
       if (statusRequest1 == StatusRequest.success) {
-        print("======================== 1");
         if (querySnapshot.docs.isNotEmpty) {
-          print("======================== 2");
           // Get the first document from the query result
           DocumentSnapshot docSnapshot = querySnapshot.docs.first;
 
@@ -75,18 +69,12 @@ class TaskDetailsControllerImp extends TaskDetailsController {
           if (data != null && data.containsKey('members')) {
             // Access the value of the list field
             members = List<String>.from(data['members']);
-            print("======================== members ${members.length}");
             update();
             return members;
           } else {
-            print("======================== 3");
-            print(
-                'List field members not found in document with title members');
             return []; // Return an empty list if list field not found
           }
         } else {
-          print("======================== 4");
-          print('Document with title event not found');
           return []; // Return an empty list if document not found
         }
       }
@@ -100,14 +88,7 @@ class TaskDetailsControllerImp extends TaskDetailsController {
   save() async {
     statusRequest = StatusRequest.loading;
     update();
-    // statusRequest = await taskData.addTask(
-    //   event: appServices.sharedPreferences.getString("event")!,
-    //   member: memberValue,
-    //   options: options,
-    //   optionsFinished: optionsFinished,
-    //   title: taskModel.taskName,
-    //   sliderValue: sliderValue,
-    // );
+
     try {
       statusRequest = StatusRequest.loading;
       update();
@@ -126,14 +107,10 @@ class TaskDetailsControllerImp extends TaskDetailsController {
         });
         statusRequest = StatusRequest.success;
 
-        Get.toNamed(kBottomNavigationScreen);
-
+        Get.offAllNamed(kBottomNavigationScreen);
       }
       update();
-      print('Value updated successfully');
-    } catch (e) {
-      print('Error updating value: $e');
-    }
+    } catch (e) {}
     update();
   }
 
@@ -149,7 +126,6 @@ class TaskDetailsControllerImp extends TaskDetailsController {
 
     if (statusRequest == StatusRequest.success) {
       if (querySnapshot.docs.isNotEmpty) {
-        print("================= sucess");
         var response = querySnapshot.docs.first.data() as Map;
         memberValue = response['member'];
         options = response['option'];

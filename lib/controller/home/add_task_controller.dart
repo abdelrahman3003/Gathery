@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
+import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/data/dataSource/remote/task/task_data.dart';
@@ -36,7 +37,6 @@ class AddTaskControllerImp extends AddTaskController {
 
   @override
   addTask() async {
-    print("===========${titleController.text}");
     if (formKey.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
@@ -44,7 +44,9 @@ class AddTaskControllerImp extends AddTaskController {
           optionTextFieldList.map((controller) => controller.text).toList();
       statusRequest = await taskData.addTask(
           event: appServices.sharedPreferences.getString("event")!,
-          member: memberValue,
+          member: appServices.sharedPreferences.getBool("admin")!
+              ? memberValue
+              : appServices.sharedPreferences.getString("id")!,
           options: enteredDataList,
           optionsFinished: [],
           title: titleController.text,
@@ -54,6 +56,7 @@ class AddTaskControllerImp extends AddTaskController {
             backgroundColor: Colors.grey,
             title: "Suceessfully task added",
             messageText: const Text(""));
+        Get.offAllNamed(kBottomNavigationScreen);
         clearFileds();
       }
     }

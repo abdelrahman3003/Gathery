@@ -3,19 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/controller/home/tasks_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:get/get.dart';
-import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/data/model/task_model.dart';
 
-class TaskItem extends GetView<TasksControllerImp> {
-  const TaskItem( {super.key, required this.taskModel,required this.onTap,});
+class TaskItem extends StatelessWidget {
+  const TaskItem({
+    super.key,
+    required this.taskModel,
+    required this.onTap,
+    required this.label,
+  });
   final TaskModel taskModel;
-final void Function()? onTap; 
+  final void Function()? onTap;
+  final String label;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:onTap,
-        
-      
+      onTap: onTap,
       child: Container(
           height: 120.h,
           margin: const EdgeInsets.symmetric(vertical: 8),
@@ -49,7 +52,7 @@ final void Function()? onTap;
                 onChanged: (val) {},
                 max: 100,
                 divisions: 5,
-                label: controller.currentValue.round().toString(),
+                label: label
               )
             ],
           )),

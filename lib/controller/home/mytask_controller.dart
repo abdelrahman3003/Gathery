@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:note_app/controller/button_navigator_bar_controller.dart';
 import 'package:note_app/controller/home/tasks_controller.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
@@ -84,9 +83,7 @@ class MyTaskSControllerImp extends MyTaskSController {
             TaskModel task = TaskModel.fromDocument(doc);
             myTaskModelList.add(task);
           });
-        } else {
-          print("========================= emoty");
-        }
+        } else {}
       }
       update();
     } catch (error) {
