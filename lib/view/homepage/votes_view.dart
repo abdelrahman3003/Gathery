@@ -12,7 +12,6 @@ class VotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(VoteControllerImp());
     return GetBuilder<VoteControllerImp>(
-        dispose: (state) => Get.delete<VoteControllerImp>(),
         builder: (controller) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),

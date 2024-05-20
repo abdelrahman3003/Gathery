@@ -65,6 +65,7 @@ class AddVoteControllerImp extends AddVoteController {
       titleController.clear();
       optionControllers.clear();
       optionControllers.add(TextEditingController());
+      
 
       update();
     }

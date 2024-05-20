@@ -5,7 +5,7 @@ import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 
 abstract class VoteController extends GetxController {
-  onVote(String title, int option,int voteNum);
+  onVote(String title, int option, int voteNum);
   getTotalVotes();
   checkUserVoted(String title);
 }
@@ -25,7 +25,7 @@ class VoteControllerImp extends VoteController {
   }
 
   @override
-  onVote(String title, int option ,int voteNum) async {
+  onVote(String title, int option, int voteNum) async {
     try {
       if (allVoters[voteNum]
           .contains(appServices.sharedPreferences.getString("id"))) {
@@ -74,7 +74,6 @@ class VoteControllerImp extends VoteController {
           transaction.update(docRef, {'options': listOfMaps});
         });
       }
-
       print('Value in list of maps updated successfully');
     } catch (e) {
       print('================ Error updating value in list of maps: $e');

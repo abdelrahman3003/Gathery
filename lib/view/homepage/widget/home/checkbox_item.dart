@@ -23,13 +23,6 @@ class CheckBoxItem extends GetView<TaskDetailsControllerImp> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        Checkbox(
-          value: value,
-          onChanged: (value) {
-            controller.changeActive(title, value!);
-          },
-          activeColor: AppColor.primary,
-        )
       ],
     );
   }
