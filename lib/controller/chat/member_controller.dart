@@ -77,13 +77,8 @@ class MembersControllerIMp extends MembersController {
         await querySnapshot.docs.first.reference.update({
           "members": memberList,
         });
-        print("======================= member is not empty");
       } else {
-        print("======================= member is  empty");
       }
-
-      print('String removed successfully');
-
       update();
     } else {
       Get.rawSnackbar(
