@@ -22,94 +22,97 @@ class TaskDetailsView extends StatelessWidget {
               title: "Task Details",
             )),
         body: GetBuilder<TaskDetailsControllerImp>(builder: (controller) {
-          return DataHandlingState(
-              statusRequest: controller.statusRequest,
-              widget: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      controller.appServices.sharedPreferences.getBool("admin")!
-                          ? Text(
-                              "asign anthor user",
-                              style: TextStyle(
-                                fontSize: 22,
-                              ),
-                            )
-                          : SizedBox(),
-                      const SizedBox(height: 20),
-                      controller.appServices.sharedPreferences.getBool("admin")!
-                          ? DataHandlingState(
-                              statusRequest: controller.statusRequest1,
-                              widget: Container(
-                                decoration: BoxDecoration(
-                                    color: AppColor.third,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: DropdownButton(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 5),
-                                  dropdownColor: AppColor.third,
-                                  value: controller.memberValue.isNotEmpty
-                                      ? controller.memberValue
-                                      : null, // guard it with null if empty
-                                  hint: Text(
-                                    'Your Section',
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  isExpanded: true,
-                                  underline: const SizedBox(),
-                                  icon: const Icon(Icons.keyboard_arrow_down,
-                                      color: Colors.black),
-                                  iconSize: 30,
-                                  items: controller.members.map((String items) {
-                                    return DropdownMenuItem(
-                                        value: items, child: Text(items));
-                                  }).toList(),
-                                  onChanged: (val) {
-                                    controller
-                                        .onChangeDropDownMember(val.toString());
-                                  },
+          return controller.statusRequest != StatusRequest.loading
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        controller.appServices.sharedPreferences
+                                .getBool("admin")!
+                            ? Text(
+                                "asign anthor user",
+                                style: TextStyle(
+                                  fontSize: 22,
                                 ),
-                              ),
-                            )
-                          : SizedBox(),
-                      ItemTextTaskDeatils(
-                          tilte: "Assign UserName",
-                          subtilte: controller.taskModel.user),
-                      ItemTextTaskDeatils(
-                          tilte: "Task Name",
-                          subtilte: controller.taskModel.taskName),
-                      const SizedBox(height: 20),
-                      Slider(
-                        value: controller.sliderValue,
-                        onChanged: (val) {
-                          controller.onchangeSlider(val);
-                        },
-                        max: 100,
-                        divisions: 4,
-                        label: controller.sliderValue.round().toString(),
-                      ),
-                      const SizedBox(height: 30),
-                      controller.statusRequest == StatusRequest.loading
-                          ? CircularProgressIndicator()
-                          : SizedBox(),
-                      const SizedBox(height: 30),
-                      Join(
-                        color: AppColor.primary,
-                        textColor: AppColor.white,
-                        text: "save",
-                        onPressed: () {
-                          controller.save();
-                        },
-                      )
-                    ],
+                              )
+                            : SizedBox(),
+                        const SizedBox(height: 20),
+                        controller.appServices.sharedPreferences
+                                .getBool("admin")!
+                            ? DataHandlingState(
+                                statusRequest: controller.statusRequest1,
+                                widget: Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColor.third,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: DropdownButton(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 5),
+                                    dropdownColor: AppColor.third,
+                                    value: controller.memberValue.isNotEmpty
+                                        ? controller.memberValue
+                                        : null, // guard it with null if empty
+                                    hint: Text(
+                                      'Your Section',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    isExpanded: true,
+                                    underline: const SizedBox(),
+                                    icon: const Icon(Icons.keyboard_arrow_down,
+                                        color: Colors.black),
+                                    iconSize: 30,
+                                    items:
+                                        controller.members.map((String items) {
+                                      return DropdownMenuItem(
+                                          value: items, child: Text(items));
+                                    }).toList(),
+                                    onChanged: (val) {
+                                      controller.onChangeDropDownMember(
+                                          val.toString());
+                                    },
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                        ItemTextTaskDeatils(
+                            tilte: "Assign UserName",
+                            subtilte: controller.taskModel.user),
+                        ItemTextTaskDeatils(
+                            tilte: "Task Name",
+                            subtilte: controller.taskModel.taskName),
+                        const SizedBox(height: 20),
+                        Slider(
+                          value: controller.sliderValue,
+                          onChanged: (val) {
+                            controller.onchangeSlider(val);
+                          },
+                          max: 100,
+                          divisions: 4,
+                          label: controller.sliderValue.round().toString(),
+                        ),
+                        const SizedBox(height: 30),
+                        controller.statusRequest == StatusRequest.loading
+                            ? CircularProgressIndicator()
+                            : SizedBox(),
+                        const SizedBox(height: 30),
+                        Join(
+                          color: AppColor.primary,
+                          textColor: AppColor.white,
+                          text: "save",
+                          onPressed: () {
+                            controller.save();
+                          },
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ));
+                )
+              : const CircularProgressIndicator();
         }));
   }
 }

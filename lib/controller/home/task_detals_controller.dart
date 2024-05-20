@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:note_app/controller/button_navigator_bar_controller.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
@@ -10,7 +9,7 @@ import 'package:note_app/data/dataSource/remote/task/task_data.dart';
 import 'package:note_app/data/model/task_model.dart';
 
 abstract class TaskDetailsController extends GetxController {
-  changeActive(String title, bool value);
+
   getMembers();
   onChangeDropDownMember(String val);
   onchangeSlider(double value);
@@ -21,10 +20,7 @@ abstract class TaskDetailsController extends GetxController {
 class TaskDetailsControllerImp extends TaskDetailsController {
   EventsData eventsData = EventsData(Get.find());
   late TaskModel taskModel;
-  bool isActiveCheck1 = false;
-  bool isActiveCheck2 = false;
-  bool isActiveCheck3 = false;
-  bool isActiveCheck4 = false;
+
   List<String> options = [];
   List<String> optionsFinished = [];
   AppServices appServices = Get.find();
@@ -42,25 +38,14 @@ class TaskDetailsControllerImp extends TaskDetailsController {
 
   @override
   void onInit() {
+   
     taskModel = Get.arguments['taskModel'];
     sliderValue = taskModel.sliderValue;
     getMembers();
     super.onInit();
   }
 
-  @override
-  changeActive(String title, bool value) {
-    if (title == "Check 1") {
-      isActiveCheck1 = value;
-    } else if (title == "Check 2") {
-      isActiveCheck2 = value;
-    } else if (title == "Check 3") {
-      isActiveCheck3 = value;
-    } else if (title == "Check 4") {
-      isActiveCheck4 = value;
-    }
-    update();
-  }
+ 
 
   @override
   getMembers() async {
@@ -142,7 +127,7 @@ class TaskDetailsControllerImp extends TaskDetailsController {
         statusRequest = StatusRequest.success;
 
         Get.toNamed(kBottomNavigationScreen);
-        
+
       }
       update();
       print('Value updated successfully');
