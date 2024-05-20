@@ -1,6 +1,6 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:note_app/controller/button_navigator_bar_controller.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
@@ -44,9 +44,7 @@ class TaskDetailsControllerImp extends TaskDetailsController {
   void onInit() {
     taskModel = Get.arguments['taskModel'];
     sliderValue = taskModel.sliderValue;
-    print("======================== option${taskModel.optiona.length}");
     getMembers();
-    print("=================== ${members.length}");
     super.onInit();
   }
 
@@ -109,8 +107,6 @@ class TaskDetailsControllerImp extends TaskDetailsController {
       }
       update();
     } catch (e) {
-      print("======================== 5");
-      print('Error getting items from list: $e');
       return []; // Return an empty list if there's an error
     }
   }
@@ -144,9 +140,11 @@ class TaskDetailsControllerImp extends TaskDetailsController {
           "sliderValue": sliderValue,
         });
         statusRequest = StatusRequest.success;
-        Get.toNamed(kBottomNavigationScreen);
-      }
 
+        Get.toNamed(kBottomNavigationScreen);
+        
+      }
+      update();
       print('Value updated successfully');
     } catch (e) {
       print('Error updating value: $e');

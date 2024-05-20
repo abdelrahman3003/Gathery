@@ -7,21 +7,15 @@ import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/data/model/task_model.dart';
 
 class TaskItem extends GetView<TasksControllerImp> {
-  const TaskItem({super.key, required this.taskModel});
+  const TaskItem( {super.key, required this.taskModel,required this.onTap,});
   final TaskModel taskModel;
-
+final void Function()? onTap; 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        if (controller.appServices.sharedPreferences.getBool("admin")! ||
-            taskModel.user ==
-                controller.appServices.sharedPreferences.getString("id")) {
-          Get.toNamed(kTaskDetailsView, arguments: {
-            'taskModel': taskModel,
-          });
-        }
-      },
+      onTap:onTap,
+        
+      
       child: Container(
           height: 120.h,
           margin: const EdgeInsets.symmetric(vertical: 8),

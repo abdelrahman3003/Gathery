@@ -55,7 +55,6 @@ class ChatAppbar extends GetView<ChatControllerImp> {
                               value: controller.isclosed,
                               onChanged: (newValue) {
                                 controller.chatClose(newValue);
-                                print("================== close $newValue");
                               },
                               activeColor: AppColor
                                   .primary, // Customize the active color

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:note_app/controller/button_navigator_bar_controller.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ abstract class MyTaskSController extends GetxController {
   getMyTasks();
   changeSlider(double val);
   goToTaskDetails();
+  onTapTask(int index);
 }
 
 class MyTaskSControllerImp extends MyTaskSController {
@@ -89,6 +91,18 @@ class MyTaskSControllerImp extends MyTaskSController {
     } catch (error) {
       statusRequest = StatusRequest.loading;
       print('Error getting tasks: $error');
+    }
+    update();
+  }
+
+  @override
+  onTapTask(int index) {
+    if (appServices.sharedPreferences.getBool("admin")! ||
+        myTaskModelList[index].user ==
+            appServices.sharedPreferences.getString("id")) {
+      Get.toNamed(kTaskDetailsView,
+          arguments: {'taskModel': myTaskModelList[index]});
+      Get.delete<MyTaskSControllerImp>();
     }
     update();
   }

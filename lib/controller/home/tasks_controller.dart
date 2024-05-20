@@ -11,6 +11,7 @@ abstract class TasksController extends GetxController {
   fetchTasks();
   changeSlider(double val);
   goToTaskDetails(String assignuser);
+  onTapTask(int index);
 }
 
 class TasksControllerImp extends TasksController {
@@ -40,7 +41,6 @@ class TasksControllerImp extends TasksController {
   @override
   void fetchTasks() async {
     try {
-
       statusRequest = StatusRequest.loading;
       update();
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -49,9 +49,7 @@ class TasksControllerImp extends TasksController {
               .where('event',
                   isEqualTo: appServices.sharedPreferences.getString("event"))
               .get();
-      if (querySnapshot.docs.isNotEmpty) {
-     
-      }
+      if (querySnapshot.docs.isNotEmpty) {}
       statusRequest = handlingApiData(querySnapshot);
       if (querySnapshot.docs.isNotEmpty) {}
       if (statusRequest == StatusRequest.success) {
@@ -66,6 +64,18 @@ class TasksControllerImp extends TasksController {
     } catch (error) {
       statusRequest = StatusRequest.loading;
       print('Error getting tasks: $error');
+    }
+    update();
+  }
+
+  @override
+  onTapTask(int index) {
+    if (appServices.sharedPreferences.getBool("admin")! ||
+        taskModelList[index].user ==
+            appServices.sharedPreferences.getString("id")) {
+      Get.toNamed(kTaskDetailsView,
+          arguments: {'taskModel': taskModelList[index]});
+      Get.delete<TasksControllerImp>();
     }
     update();
   }
