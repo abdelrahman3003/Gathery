@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:note_app/controller/chat/chat_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
@@ -42,7 +41,6 @@ class RoleView extends StatelessWidget {
                           value: controller.isclosed,
                           onChanged: (newValue) {
                             controller.chatClose(newValue);
-                            print("================== close $newValue");
                           },
                           activeColor:
                               AppColor.primary, // Customize the active color

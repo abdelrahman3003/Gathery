@@ -37,7 +37,6 @@ class MembersControllerIMp extends MembersController {
             .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      print("================= not empty");
       Map data = querySnapshot.docs.first.data() as Map;
       for (var i in data['members']) {
         memberList.add(i);
@@ -50,7 +49,6 @@ class MembersControllerIMp extends MembersController {
       statusRequest = StatusRequest.success;
       update();
     } else {
-      print("=================  empty");
     }
 
     update();
