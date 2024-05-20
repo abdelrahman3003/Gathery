@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 
@@ -29,7 +30,7 @@ class VoteControllerImp extends VoteController {
     try {
       if (allVoters[voteNum]
           .contains(appServices.sharedPreferences.getString("id"))) {
-        print("================else");
+        print("================ else");
         Get.rawSnackbar(
             backgroundColor: Colors.red,
             title: "You voted already",
@@ -69,10 +70,11 @@ class VoteControllerImp extends VoteController {
               break;
             }
           }
-          getTotalVotes();
+
           // Updadete the document with the modified list
           transaction.update(docRef, {'options': listOfMaps});
         });
+        Get.offAllNamed(kBottomNavigationScreen,arguments: ['']);
       }
       print('Value in list of maps updated successfully');
     } catch (e) {
@@ -83,6 +85,7 @@ class VoteControllerImp extends VoteController {
 
   @override
   getTotalVotes() async {
+    print("=================== getVotes");
     try {
       statusRequest = StatusRequest.loading;
       update();
@@ -97,17 +100,12 @@ class VoteControllerImp extends VoteController {
               votes = data;
             }
             allVoters.add(i['voters']);
-            print("=============== voters ${allVoters.length}");
           }
-          print("=============== voters in one ${allVoters[1].length}");
-
-          print("=========== lenght ${data.length}");
         }
-
+        update();
         statusRequest = StatusRequest.success;
       });
     } catch (e) {
-      print("======================$e");
       statusRequest = StatusRequest.failure;
     }
     update();

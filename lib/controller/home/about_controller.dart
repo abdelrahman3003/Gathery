@@ -25,8 +25,10 @@ class AboutControllerImp extends AboutController {
     statusRequest = StatusRequest.loading;
     update();
     CollectionReference collectionReference = await eventsData.getData();
-    QuerySnapshot querySnapshot =
-        await collectionReference.where('title', isEqualTo: eventTitle).get();
+    QuerySnapshot querySnapshot = await collectionReference
+        .where('title',
+            isEqualTo: appServices.sharedPreferences.getString("event"))
+        .get();
     statusRequest = handlingApiData(collectionReference);
 
     if (statusRequest == StatusRequest.success) {
@@ -46,9 +48,7 @@ class AboutControllerImp extends AboutController {
   @override
   void onInit() async {
     //print("==================${appServices.sharedPreferences.getString("id")}");
-    print(
-        "======================= isadmin ${await appServices.sharedPreferences.getBool("admin")}");
-    eventTitle = Get.arguments['title'];
+    eventTitle = appServices.sharedPreferences.getString("event")!;
     getData();
     super.onInit();
   }

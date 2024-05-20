@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
+import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 
 abstract class AddVoteController extends GetxController {
@@ -18,6 +19,7 @@ class AddVoteControllerImp extends AddVoteController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   CollectionReference voteCollection =
       FirebaseFirestore.instance.collection('votes');
+  AppServices appServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   List<String> users = [];
   @override
@@ -39,8 +41,8 @@ class AddVoteControllerImp extends AddVoteController {
       }
       data = {
         "title": titleController.text,
-        "user": "abderahman",
-        "event": "event1",
+        "user": appServices.sharedPreferences.getString("id"),
+        "event": appServices.sharedPreferences.getString("event"),
         "date": FieldValue.serverTimestamp(),
         "options": options,
         "voters": users
@@ -52,7 +54,7 @@ class AddVoteControllerImp extends AddVoteController {
             backgroundColor: Colors.grey,
             title: "Suceessfully,vote  added ",
             messageText: const Text(""));
-        Get.offNamed(kBottomNavigationScreen);
+
         options.clear();
       } catch (e) {
         Get.defaultDialog(
@@ -65,8 +67,7 @@ class AddVoteControllerImp extends AddVoteController {
       titleController.clear();
       optionControllers.clear();
       optionControllers.add(TextEditingController());
-      
-
+      Get.offAllNamed(kBottomNavigationScreen);
       update();
     }
   }
