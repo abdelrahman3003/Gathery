@@ -74,7 +74,7 @@ class VoteControllerImp extends VoteController {
           // Updadete the document with the modified list
           transaction.update(docRef, {'options': listOfMaps});
         });
-        Get.offAllNamed(kBottomNavigationScreen,arguments: ['']);
+        Get.offAllNamed(kBottomNavigationScreen, arguments: ['']);
       }
       print('Value in list of maps updated successfully');
     } catch (e) {
@@ -85,7 +85,6 @@ class VoteControllerImp extends VoteController {
 
   @override
   getTotalVotes() async {
-    print("=================== getVotes");
     try {
       statusRequest = StatusRequest.loading;
       update();
@@ -97,7 +96,7 @@ class VoteControllerImp extends VoteController {
           for (var i in data) {
             if (i.get("event") ==
                 appServices.sharedPreferences.getString("event")) {
-              votes = data;
+              votes.add(i);
             }
             allVoters.add(i['voters']);
           }

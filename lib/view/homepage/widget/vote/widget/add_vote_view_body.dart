@@ -7,7 +7,6 @@ import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/core/constatnt/validation.dart';
 import 'package:note_app/view/homepage/widget/vote/widget/option_list.dart';
 import 'package:note_app/view/homepage/widget/vote/widget/title_text_vote.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../../../core/shared/app_button.dart';
 

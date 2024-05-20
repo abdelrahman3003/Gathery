@@ -24,7 +24,8 @@ class EventsData {
         "end_date": endDate,
         "image": imageUrl,
         "members": members,
-        "password": password
+        "password": password,
+      
       });
     }
     return StatusRequest.failure;
@@ -34,11 +35,13 @@ class EventsData {
     var response = await crud.getLast("Events");
     return response.fold((l) => l, (r) => r);
   }
-    getDataTaskDetails() async {
+
+  getDataTaskDetails() async {
     var response = await crud.getLast("Tasks");
     return response.fold((l) => l, (r) => r);
   }
-    getUser() async {
+
+  getUser() async {
     var response = await crud.getLast("Users");
     return response.fold((l) => l, (r) => r);
   }
