@@ -18,7 +18,7 @@ class RoleView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
-            const TextRole(text: "Invite participants"),
+            //   const TextRole(text: "Invite participants"),
             //     const TextRole(text: "Invite by link"),
             //   const TextRole(text: "Manage chat"),
             GetBuilder<ChatControllerImp>(builder: (controller) {
