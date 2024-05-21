@@ -78,6 +78,27 @@ class RoleView extends StatelessWidget {
                       color: Colors.black,
                       fontWeight: FontWeight.w600)),
             ),
+            const SizedBox(height: 80),
+            Center(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    14,
+                  ),
+                  color: AppColor.white,
+                ),
+                child: GestureDetector(
+                  onTap: controller.logOut,
+                  child: const Text("Logout",
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w600)),
+                ),
+              ),
+            ),
           ],
         ),
       ),

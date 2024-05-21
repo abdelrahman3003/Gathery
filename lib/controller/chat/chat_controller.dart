@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/data/model/event_model.dart';
@@ -12,6 +13,7 @@ abstract class ChatController extends GetxController {
   getDataGroub();
   chatClose(bool isClose);
   bool checkClosed();
+  logOut();
 }
 
 class ChatControllerImp extends ChatController {
@@ -42,7 +44,8 @@ class ChatControllerImp extends ChatController {
       firestore.collection('chats').add({
         'text': messageController.text,
         'createdAt': Timestamp.now(),
-        'userId': id
+        'userId': appServices.sharedPreferences.getString("id"),
+        'event': appServices.sharedPreferences.getString("event")
       });
       messageController.clear();
     }
@@ -87,5 +90,10 @@ class ChatControllerImp extends ChatController {
       return false;
     }
     return true;
+  }
+
+  @override
+  logOut() {
+    Get.offAllNamed(kSignInView);
   }
 }

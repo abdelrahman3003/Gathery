@@ -16,10 +16,8 @@ abstract class SignInController extends GetxController {
 class SignInControllerImp extends SignInController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isScurePassword = true;
-  TextEditingController emailController =
-      TextEditingController(text: "temsah@gmail.com");
-  TextEditingController passwordController =
-      TextEditingController(text: "123456");
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   FirebaseAuthServices authServices = FirebaseAuthServices();
   StatusRequest statusRequest = StatusRequest.none;
   Crud crud = Crud();
