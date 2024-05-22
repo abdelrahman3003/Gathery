@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:note_app/controller/chat/chat_controller.dart';
+import 'package:note_app/view/homepage/widget/chat/chat_message.dart';
 
 class ChatViewBody extends StatelessWidget {
   const ChatViewBody({super.key});
@@ -28,39 +29,13 @@ class ChatViewBody extends StatelessWidget {
                   var messageText = messageData['text'];
                   var messageUserId = messageData['userId'];
 
-                  bool isMe = messageUserId == chatController.id;
+                  bool isMe = messageUserId ==
+                      chatController.appServices.sharedPreferences.get("id");
 
-                  return ListTile(
-                    title: Align(
-                      alignment:
-                          isMe ? Alignment.centerRight : Alignment.centerLeft,
-                      child: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: isMe ? Colors.blue[200] : Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: isMe
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              messageText,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              messageUserId,
-                              style: const TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  return ChatMessage(
+                    message: messageText,
+                    isSentByMe: isMe,
+                    user: messageUserId,
                   );
                 },
               );

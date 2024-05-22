@@ -35,12 +35,12 @@ class Crud {
     }
   }
 
-Future<Either<StatusRequest, CollectionReference>> getLast(
+  Future<Either<StatusRequest, CollectionReference>> getLast(
       String collection) async {
     try {
       if (await checkInternetConnection()) {
         CollectionReference collectionReference =
-             FirebaseFirestore.instance.collection(collection);
+            FirebaseFirestore.instance.collection(collection);
         return right(collectionReference);
       } else {
         return left(StatusRequest.offlineFailure);
@@ -56,11 +56,14 @@ Future<Either<StatusRequest, CollectionReference>> getLast(
       if (await checkInternetConnection()) {
         CollectionReference items = firestore.collection(collection);
         await items.add(data);
+        print("========= succes");
         return StatusRequest.success;
       } else {
+        print("========= f1");
         return StatusRequest.serverFailure;
       }
     } catch (e) {
+      print("========= f2 $e");
       return StatusRequest.serverFailure;
     }
   }

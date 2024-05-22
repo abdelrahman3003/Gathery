@@ -27,7 +27,7 @@ class About extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: controller.image == null
-                  ? const Center(child: CircularProgressIndicator())
+                  ? const Center(child: SizedBox())
                   : controller.statusRequest == StatusRequest.success
                       ? Image.network(
                           controller.image!,

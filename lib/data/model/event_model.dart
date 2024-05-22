@@ -6,7 +6,7 @@ class EventModel {
   final List members;
   final String startDate;
   final String endDate;
-  final String image;
+  String? image;
 
   EventModel({
     required this.admin,

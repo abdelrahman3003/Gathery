@@ -119,7 +119,7 @@ class CeateEventControllerImp extends CeateEventController {
           admin: appServices.sharedPreferences.getString("id")!,
           endDate: textEditingEndDateController.text,
           startDate: textEditingSatrtDateController.text,
-          image: image!,
+          image: image,
           members: [appServices.sharedPreferences.getString("id")!],
           password: textEditingPassordController.text);
       print("=======================");
