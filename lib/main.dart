@@ -13,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await inialServices();
   await Firebase.initializeApp();
+   await ScreenUtil.ensureScreenSize();
   runApp(const Gatherly());
 }
 
