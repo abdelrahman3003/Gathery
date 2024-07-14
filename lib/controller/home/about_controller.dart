@@ -47,9 +47,11 @@ class AboutControllerImp extends AboutController {
 
   @override
   void onInit() async {
+
     //print("==================${appServices.sharedPreferences.getString("id")}");
     eventTitle = appServices.sharedPreferences.getString("event")!;
     getData();
+    print("docid =========${appServices.sharedPreferences.get('docid')}");
     super.onInit();
   }
 
@@ -68,9 +70,9 @@ class AboutControllerImp extends AboutController {
     try {
       statusRequest = StatusRequest.loading;
       update();
-      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-      QuerySnapshot querySnapshot = await _firestore
+      QuerySnapshot querySnapshot = await firestore
           .collection("users")
           .where("email", isEqualTo: "id")
           .get();

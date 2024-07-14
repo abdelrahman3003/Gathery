@@ -31,11 +31,11 @@ const kAddVoteView = "/AddVoteView";
 const kChatView = "/ChatView";
 const kMembersView = "/MembersView";
 List<GetPage<dynamic>>? getPages = [
-  GetPage(name: "/", page: () => const SplashView()),
+  GetPage(name: kSplashView, page: () => const SplashView()),
   GetPage(name: kWelcomeView, page: () => const WelcomeView()),
   GetPage(name: kSignInView, page: () => const SignInView()),
   GetPage(name: kSignUpView, page: () => const SignUpView()),
-  GetPage(name: kJoinEventView, page: () => const JoinEventView()),
+  GetPage(name: "/", page: () => const JoinEventView()),
   GetPage(name: kCreateEvent, page: () => const CreateEvent()),
   GetPage(
       name: kBottomNavigationScreen,

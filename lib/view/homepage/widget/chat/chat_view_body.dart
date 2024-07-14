@@ -20,6 +20,7 @@ class ChatViewBody extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               }
               final messages = snapshot.data!.docs;
+
               return ListView.builder(
                 reverse: true,
                 itemCount: messages.length,

@@ -13,7 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await inialServices();
   await Firebase.initializeApp();
-   await ScreenUtil.ensureScreenSize();
+  await ScreenUtil.ensureScreenSize();
   runApp(const Gatherly());
 }
 
@@ -23,7 +23,6 @@ class Gatherly extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-  
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

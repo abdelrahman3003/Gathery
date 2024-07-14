@@ -27,13 +27,19 @@ class VoteCart extends GetView<VoteControllerImp> {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) => OptionCart(
-            voteIndex: voteIndex,
-            onVote: () {
-              controller.onVote(voteName, index, voteIndex);
-            },
-            percent: options[index]['percent'],
-            answer: options[index]['answer'],
-            isVoted: controller.isvotedList[1]),
+          onVote: () {
+            controller.onVote(title: voteName,option: index,voteNum: voteIndex);
+            controller.changeindex(voteIndex, index);
+          },
+          index: voteIndex,
+          option: index,
+          percent: options[index]['percent'],
+          answer: options[index]['answer'],
+          isVoted: controller.allVoters[voteIndex].contains(
+                  controller.appServices.sharedPreferences.getString("id"))
+              ? false
+              : true,
+        ),
       ),
       const SizedBox(height: 30)
     ]);

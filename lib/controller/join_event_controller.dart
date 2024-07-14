@@ -17,10 +17,11 @@ abstract class JoinEventController extends GetxController {
   checkAdmin();
   getMebers();
   getUser();
+  getDecumentid();
 }
 
 class JoinEventControllerImp extends JoinEventController {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> formKey;
   bool isJoined = true;
   bool isScurePassword = true;
   bool test = true;
@@ -28,11 +29,16 @@ class JoinEventControllerImp extends JoinEventController {
   AppServices appServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   EventsData eventsData = EventsData(Get.find());
-  TextEditingController textEditingTitlController = TextEditingController();
-  TextEditingController textEditingPasswordController = TextEditingController();
+  TextEditingController textEditingTitlController =
+      TextEditingController(text: 'event1');
+  TextEditingController textEditingPasswordController =
+      TextEditingController(text: '123456');
   List<String> members = [];
   StatusRequest statusRequest1 = StatusRequest.none;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   String name = "";
+
   @override
   changePage() {
     isJoined = !isJoined;
@@ -41,6 +47,7 @@ class JoinEventControllerImp extends JoinEventController {
 
   @override
   void onInit() {
+    formKey = GlobalKey<FormState>();
     super.onInit();
     getUser();
   }
@@ -73,10 +80,10 @@ class JoinEventControllerImp extends JoinEventController {
         if (querySnapshot.docs.isNotEmpty) {
           if (querySnapshot.docs.first['password'] ==
               textEditingPasswordController.text) {
-            Get.offAllNamed(kBottomNavigationScreen,
-                arguments: {'title': textEditingTitlController.text});
+            await getDecumentid();
             appServices.sharedPreferences
                 .setString("event", textEditingTitlController.text);
+            appServices.sharedPreferences.setInt("index", 0);
             await checkAdmin();
             await addUser();
             Get.rawSnackbar(
@@ -86,6 +93,8 @@ class JoinEventControllerImp extends JoinEventController {
                   "now you is event admin",
                   style: TextStyle(color: AppColor.white),
                 ));
+            Get.offAllNamed(kBottomNavigationScreen,
+                arguments: {'title': textEditingTitlController.text});
           } else {
             statusRequest = StatusRequest.failure;
 
@@ -240,5 +249,21 @@ class JoinEventControllerImp extends JoinEventController {
       print('Error getting tasks: $error');
     }
     update();
+  }
+
+  @override
+  getDecumentid() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await firestore
+        .collection('Events')
+        .where('title', isEqualTo: textEditingTitlController.text)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      print("========== join");
+      var docid = querySnapshot.docs.first.id.toString();
+      print("==========do2 $docid");
+
+      await appServices.sharedPreferences.setString('docid', docid);
+    }
   }
 }

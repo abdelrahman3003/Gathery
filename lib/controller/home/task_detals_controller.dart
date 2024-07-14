@@ -92,9 +92,9 @@ class TaskDetailsControllerImp extends TaskDetailsController {
     try {
       statusRequest = StatusRequest.loading;
       update();
-      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-      QuerySnapshot querySnapshot = await _firestore
+      QuerySnapshot querySnapshot = await firestore
           .collection("Tasks")
           .where("member", isEqualTo: taskModel.user)
           .get();

@@ -69,7 +69,9 @@ class RoleView extends StatelessWidget {
                 },
                 child: const TextRole(text: "kick particpants")),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
+                await controller.appServices.sharedPreferences.remove('docid');
+
                 Get.offAllNamed(kJoinEventView);
               },
               child: const Text("Create or join event",

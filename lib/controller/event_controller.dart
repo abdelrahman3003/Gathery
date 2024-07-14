@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app/controller/join_event_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +21,7 @@ abstract class CeateEventController extends GetxController {
   selectImage();
   safeData();
   onSecure();
+  getDecumentid();
 }
 
 class CeateEventControllerImp extends CeateEventController {
@@ -34,7 +37,8 @@ class CeateEventControllerImp extends CeateEventController {
       TextEditingController();
   TextEditingController textEditingEndDateController = TextEditingController();
   TextEditingController textEditingPassordController = TextEditingController();
-
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // JoinEventController joinEventController = Get.put(JoinEventControllerImp());
   final ImagePicker imgpicker = ImagePicker();
   String? imagePath;
   Uint8List? image;
@@ -123,9 +127,10 @@ class CeateEventControllerImp extends CeateEventController {
           members: [appServices.sharedPreferences.getString("id")!],
           password: textEditingPassordController.text);
       print("=======================");
+
       if (statusRequest == StatusRequest.success) {
-        Get.offNamed(kBottomNavigationScreen,
-            arguments: {'title': textEditingTitleController.text});
+        // await joinEventController.changePage();
+        Get.offAllNamed(kJoinEventView);
         Get.rawSnackbar(
             title: "Sucess",
             backgroundColor: Colors.grey,
@@ -135,6 +140,7 @@ class CeateEventControllerImp extends CeateEventController {
             ));
         appServices.sharedPreferences
             .setString("event", textEditingTitleController.text);
+        await getDecumentid();
       } else if (statusRequest == StatusRequest.failure) {
         Get.defaultDialog(
           title: "error",
@@ -156,5 +162,20 @@ class CeateEventControllerImp extends CeateEventController {
   onSecure() {
     isSecurePassword = !isSecurePassword;
     update();
+  }
+
+  @override
+  getDecumentid() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await firestore
+        .collection('Events')
+        .where('title', isEqualTo: textEditingTitleController.text)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      var docid = querySnapshot.docs.first.id.toString();
+      await appServices.sharedPreferences.remove('docid');
+
+      appServices.sharedPreferences.setString('docid', docid);
+    }
   }
 }

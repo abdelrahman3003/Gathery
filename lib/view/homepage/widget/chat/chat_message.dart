@@ -26,14 +26,15 @@ class ChatMessage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSentByMe ? Colors.blue : Colors.grey[300],
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  bottomLeft: isSentByMe ? Radius.circular(10.0) : Radius.zero,
+                  topLeft: const Radius.circular(10.0),
+                  topRight: const Radius.circular(10.0),
+                  bottomLeft:
+                      isSentByMe ? const Radius.circular(10.0) : Radius.zero,
                   bottomRight:
-                      !isSentByMe ? Radius.circular(10.0) : Radius.zero,
+                      !isSentByMe ? const Radius.circular(10.0) : Radius.zero,
                 ),
               ),
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -45,7 +46,7 @@ class ChatMessage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     user,
                     style: TextStyle(

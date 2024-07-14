@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
@@ -33,7 +32,9 @@ class ChatControllerImp extends ChatController {
   @override
   Stream<QuerySnapshot> getChatStream() {
     return firestore
-        .collection('chats')
+        .collection('Events')
+        .doc(appServices.sharedPreferences.getString('docid'))
+        .collection('chat')
         .orderBy('createdAt', descending: true)
         .snapshots();
   }
@@ -41,7 +42,11 @@ class ChatControllerImp extends ChatController {
   @override
   void sendMessage() {
     if (messageController.text.isNotEmpty) {
-      firestore.collection('chats').add({
+      firestore
+          .collection('Events')
+          .doc(appServices.sharedPreferences.getString('docid'))
+          .collection('chat')
+          .add({
         'text': messageController.text,
         'createdAt': Timestamp.now(),
         'userId': appServices.sharedPreferences.getString("id"),
@@ -53,6 +58,8 @@ class ChatControllerImp extends ChatController {
 
   @override
   getDataGroub() async {
+    print(
+        "================ docid ${appServices.sharedPreferences.getString('docid')}");
     statusRequest = StatusRequest.loading;
     update();
     final QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -93,7 +100,9 @@ class ChatControllerImp extends ChatController {
   }
 
   @override
-  logOut() {
+  logOut() async{
+    await appServices.sharedPreferences.remove('docid');
+
     Get.offAllNamed(kSignInView);
   }
 }

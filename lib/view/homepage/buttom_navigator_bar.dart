@@ -68,7 +68,8 @@ class BottomNavigationScreen extends StatelessWidget {
             body: GetBuilder<ButtonNavigatorBarControllerImp>(
               builder: (controllerbuild) {
                 return SafeArea(
-                    child: controllerbuild.pageList[controllerbuild.pageCount]);
+                    child:
+                        controllerbuild.pageList[controllerbuild.pageCount!]);
               },
             ));
       }),

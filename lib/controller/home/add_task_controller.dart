@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:note_app/controller/button_navigator_bar_controller.dart';
 import 'package:note_app/core/constatnt/handling%20_data.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
@@ -22,7 +23,8 @@ class AddTaskControllerImp extends AddTaskController {
   TaskData taskData = TaskData(Get.find());
   AppServices appServices = Get.find();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  ButtonNavigatorBarControllerImp buttomController =
+      ButtonNavigatorBarControllerImp();
   List<String> members = [];
   String memberValue = "";
   double sliderValue = 5.0;
@@ -56,7 +58,8 @@ class AddTaskControllerImp extends AddTaskController {
             backgroundColor: Colors.grey,
             title: "Suceessfully task added",
             messageText: const Text(""));
-        Get.offAllNamed(kBottomNavigationScreen);
+        // await buttomController.changepage(1);
+        //  Get.offAllNamed(kAddTaskView);
         clearFileds();
       }
     }

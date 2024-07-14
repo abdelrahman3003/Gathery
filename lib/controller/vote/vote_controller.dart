@@ -1,14 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:note_app/controller/button_navigator_bar_controller.dart';
 import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/services.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
+import 'package:note_app/view/homepage/buttom_navigator_bar.dart';
 
 abstract class VoteController extends GetxController {
-  onVote(String title, int option, int voteNum);
+  onVote({required String title, required int option, required int voteNum});
   getTotalVotes();
   checkUserVoted(String title);
+  changeindex(int option, int index);
 }
 
 class VoteControllerImp extends VoteController {
@@ -16,9 +19,15 @@ class VoteControllerImp extends VoteController {
   CollectionReference voteCollection =
       FirebaseFirestore.instance.collection('votes');
   StatusRequest statusRequest = StatusRequest.none;
+  StatusRequest statusRequestvote = StatusRequest.none;
   AppServices appServices = Get.find();
+  ButtonNavigatorBarControllerImp buttonNavigatorBarControllerImp =
+      ButtonNavigatorBarControllerImp();
   List<List> allVoters = [];
   List<bool> isvotedList = [false, false, false, false, false];
+
+  int? index;
+  int? option;
   @override
   void onInit() {
     getTotalVotes();
@@ -26,57 +35,38 @@ class VoteControllerImp extends VoteController {
   }
 
   @override
-  onVote(String title, int option, int voteNum) async {
+  onVote(
+      {required String title,
+      required int option,
+      required int voteNum}) async {
     try {
-      if (allVoters[voteNum]
-          .contains(appServices.sharedPreferences.getString("id"))) {
-        print("================ else");
-        Get.rawSnackbar(
-            backgroundColor: Colors.red,
-            title: "You voted already",
-            messageText: const Text(""));
-      } else {
-        statusRequest = StatusRequest.loading;
-        update();
-        final FirebaseFirestore firestore = FirebaseFirestore.instance;
-        QuerySnapshot querySnapshot =
-            await voteCollection.where("title", isEqualTo: title).get();
+      statusRequest = StatusRequest.loading;
+      update();
+      final FirebaseFirestore firestore = FirebaseFirestore.instance;
+      QuerySnapshot querySnapshot =
+          await voteCollection.where("title", isEqualTo: title).get();
 
-        if (querySnapshot.docs.isEmpty) {
-          throw Exception("Document not found!");
+      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+      DocumentReference docRef = documentSnapshot.reference;
+      await docRef.update({
+        'voters': FieldValue.arrayUnion(
+            [appServices.sharedPreferences.getString("id")])
+      });
+      await firestore.runTransaction((transaction) async {
+        DocumentSnapshot snapshot = await transaction.get(docRef);
+        List<dynamic> listOfMaps =
+            await snapshot.get('options') as List<dynamic>;
+
+        for (var map in listOfMaps) {
+          if (map['id'] == option) {
+            await map['percent']++;
+            break;
+          }
         }
 
-        DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
-        DocumentReference docRef = documentSnapshot.reference;
-        await docRef.update({
-          'voters': FieldValue.arrayUnion(
-              [appServices.sharedPreferences.getString("id")])
-        });
-        await firestore.runTransaction((transaction) async {
-          DocumentSnapshot snapshot = await transaction.get(docRef);
-
-          if (!snapshot.exists) {
-            statusRequest = StatusRequest.failure;
-          }
-
-          List<dynamic> listOfMaps = snapshot.get('options') as List<dynamic>;
-
-          // Find the map with the specified mapId and update its value
-          for (var map in listOfMaps) {
-            if (map['id'] == option) {
-              print("increament====================");
-              map['percent']++;
-              // Update the value within the map
-              break;
-            }
-          }
-
-          // Updadete the document with the modified list
-          transaction.update(docRef, {'options': listOfMaps});
-        });
-        Get.offAllNamed(kBottomNavigationScreen, arguments: ['']);
-      }
-      print('Value in list of maps updated successfully');
+        transaction.update(docRef, {'options': listOfMaps});
+      });
+      Get.offAllNamed(kBottomNavigationScreen, arguments: {"index": 2});
     } catch (e) {
       print('================ Error updating value in list of maps: $e');
     }
@@ -88,7 +78,10 @@ class VoteControllerImp extends VoteController {
     try {
       statusRequest = StatusRequest.loading;
       update();
-      await voteCollection.get().then((value) {
+      await voteCollection
+          .orderBy('date', descending: true)
+          .get()
+          .then((value) {
         if (value.docs.isEmpty) {
           votes = [];
         } else {
@@ -132,5 +125,12 @@ class VoteControllerImp extends VoteController {
       print('Error checking if user has voted: $e');
       return false;
     }
+  }
+
+  @override
+  changeindex(int option, int index) {
+    index = index;
+    option = option;
+    update();
   }
 }

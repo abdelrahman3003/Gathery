@@ -67,7 +67,7 @@ class AddVoteControllerImp extends AddVoteController {
       titleController.clear();
       optionControllers.clear();
       optionControllers.add(TextEditingController());
-      Get.offAllNamed(kBottomNavigationScreen);
+      Get.offAllNamed(kBottomNavigationScreen, arguments: {"index": 2});
       update();
     }
   }
