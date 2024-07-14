@@ -35,6 +35,7 @@ class SignInControllerImp extends SignInController {
             backgroundColor: Colors.grey,
             title: "Suceessfully login",
             messageText: const Text(""));
+        appServices.sharedPreferences.setString('step', '1');
         Get.offNamed(kJoinEventView);
         statusRequest = StatusRequest.success;
       } else {

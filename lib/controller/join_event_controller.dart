@@ -29,10 +29,8 @@ class JoinEventControllerImp extends JoinEventController {
   AppServices appServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   EventsData eventsData = EventsData(Get.find());
-  TextEditingController textEditingTitlController =
-      TextEditingController(text: 'event1');
-  TextEditingController textEditingPasswordController =
-      TextEditingController(text: '123456');
+  TextEditingController textEditingTitlController = TextEditingController();
+  TextEditingController textEditingPasswordController = TextEditingController();
   List<String> members = [];
   StatusRequest statusRequest1 = StatusRequest.none;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -93,6 +91,7 @@ class JoinEventControllerImp extends JoinEventController {
                   "now you is event admin",
                   style: TextStyle(color: AppColor.white),
                 ));
+            appServices.sharedPreferences.setString('step', '2');
             Get.offAllNamed(kBottomNavigationScreen,
                 arguments: {'title': textEditingTitlController.text});
           } else {

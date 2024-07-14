@@ -57,16 +57,14 @@ class ButtonNavigatorBarControllerImp extends ButtonNavigatorBarController {
         Get.delete<MyTaskSControllerImp>();
         Get.delete<VoteControllerImp>();
         Get.delete<ChatControllerImp>();
-        print(
-            "=================${appServices.sharedPreferences.getInt('index')}");
+
         break;
       case 2:
         appServices.sharedPreferences.setInt("index", 2);
         Get.delete<AboutControllerImp>();
         Get.delete<AddTaskControllerImp>();
         Get.delete<ChatControllerImp>();
-        print(
-            "=================${appServices.sharedPreferences.getInt('index')}");
+
         break;
       case 3:
         Get.delete<AboutControllerImp>();

@@ -14,6 +14,8 @@ import 'package:note_app/view/splash/splash_view.dart';
 import 'package:note_app/view/welcome/welcome_view.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
+import 'appmiddleware.dart';
+
 const kSplashView = "/SplashView";
 const kWelcomeView = "/WelcomeView";
 const kSignInView = "/SignInView";
@@ -31,11 +33,17 @@ const kAddVoteView = "/AddVoteView";
 const kChatView = "/ChatView";
 const kMembersView = "/MembersView";
 List<GetPage<dynamic>>? getPages = [
-  GetPage(name: kSplashView, page: () => const SplashView()),
-  GetPage(name: kWelcomeView, page: () => const WelcomeView()),
+  GetPage(
+    name: "/",
+    page: () => const SplashView(),
+  ),
+  GetPage(
+      name: kWelcomeView,
+      page: () => const WelcomeView(),
+      middlewares: [AppMiddleWare()]),
   GetPage(name: kSignInView, page: () => const SignInView()),
   GetPage(name: kSignUpView, page: () => const SignUpView()),
-  GetPage(name: "/", page: () => const JoinEventView()),
+  GetPage(name: kJoinEventView, page: () => const JoinEventView()),
   GetPage(name: kCreateEvent, page: () => const CreateEvent()),
   GetPage(
       name: kBottomNavigationScreen,
