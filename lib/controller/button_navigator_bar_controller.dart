@@ -37,6 +37,8 @@ class ButtonNavigatorBarControllerImp extends ButtonNavigatorBarController {
       pageCount = 1;
     } else if (appServices.sharedPreferences.getInt("index") == 2) {
       pageCount = 2;
+    } else if (appServices.sharedPreferences.getInt("index") == 3) {
+      pageCount = 3;
     } else {
       pageCount = 0;
     }
@@ -46,6 +48,7 @@ class ButtonNavigatorBarControllerImp extends ButtonNavigatorBarController {
   changepage(i) {
     switch (i) {
       case 0:
+        appServices.sharedPreferences.setInt("index", 0);
         Get.delete<AddTaskControllerImp>();
         Get.delete<VoteControllerImp>();
         Get.delete<ChatControllerImp>();
@@ -67,6 +70,7 @@ class ButtonNavigatorBarControllerImp extends ButtonNavigatorBarController {
 
         break;
       case 3:
+        appServices.sharedPreferences.setInt("index", 3);
         Get.delete<AboutControllerImp>();
         Get.delete<AddTaskControllerImp>();
         Get.delete<VoteControllerImp>();

@@ -72,7 +72,7 @@ class TasksControllerImp extends TasksController {
     if (appServices.sharedPreferences.getBool("admin")! ||
         taskModelList[index].user ==
             appServices.sharedPreferences.getString("id")) {
-      Get.toNamed(kTaskDetailsView,
+      Get.offNamed(kTaskDetailsView,
           arguments: {'taskModel': taskModelList[index]});
     }
     update();

@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/controller/home/task_detals_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:note_app/core/constatnt/data_handilng.dart';
+import 'package:note_app/core/constatnt/routApp.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 import 'package:note_app/view/event/widget/join_event/join.dart';
-import 'package:note_app/view/homepage/widget/bottom_navigate/costom_appbar.dart';
 import 'package:note_app/view/homepage/widget/home/item_text_task_details.dart';
 import 'package:get/get.dart';
 
@@ -16,11 +16,17 @@ class TaskDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(TaskDetailsControllerImp());
     return Scaffold(
-        appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(50),
-            child: CustomAppBar(
-              title: "Task Details",
-            )),
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Get.offNamed(kBottomNavigationScreen);
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+              )),
+          title: const Text("Task details"),
+          centerTitle: true,
+        ),
         body: GetBuilder<TaskDetailsControllerImp>(builder: (controller) {
           return controller.statusRequest != StatusRequest.loading
               ? Padding(
@@ -37,7 +43,7 @@ class TaskDetailsView extends StatelessWidget {
                                   fontSize: 22,
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                         const SizedBox(height: 20),
                         controller.appServices.sharedPreferences
                                 .getBool("admin")!
@@ -78,7 +84,7 @@ class TaskDetailsView extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                         ItemTextTaskDeatils(
                             tilte: "Assign UserName",
                             subtilte: controller.taskModel.user),

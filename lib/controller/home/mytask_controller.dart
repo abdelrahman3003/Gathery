@@ -54,10 +54,10 @@ class MyTaskSControllerImp extends MyTaskSController {
     statusRequest = handlingApiData(querySnapshot);
     if (statusRequest == StatusRequest.success) {
       if (querySnapshot.docs.isNotEmpty) {
-        querySnapshot.docs.forEach((doc) {
+        for (var doc in querySnapshot.docs) {
           TaskModel task = TaskModel.fromDocument(doc);
           myTaskModelList.add(task);
-        });
+        }
       }
     }
     update();
@@ -79,10 +79,10 @@ class MyTaskSControllerImp extends MyTaskSController {
       statusRequest = handlingApiData(querySnapshot);
       if (statusRequest == StatusRequest.success) {
         if (querySnapshot.docs.isNotEmpty) {
-          querySnapshot.docs.forEach((doc) {
+          for (var doc in querySnapshot.docs) {
             TaskModel task = TaskModel.fromDocument(doc);
             myTaskModelList.add(task);
-          });
+          }
         } else {}
       }
       update();
@@ -98,7 +98,7 @@ class MyTaskSControllerImp extends MyTaskSController {
     if (appServices.sharedPreferences.getBool("admin")! ||
         myTaskModelList[index].user ==
             appServices.sharedPreferences.getString("id")) {
-      Get.toNamed(kTaskDetailsView,
+      Get.offNamed(kTaskDetailsView,
           arguments: {'taskModel': myTaskModelList[index]});
       Get.delete<MyTaskSControllerImp>();
       Get.delete<TasksControllerImp>();

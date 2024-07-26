@@ -29,7 +29,7 @@ class AddTaskViewBody extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
                 controller.appServices.sharedPreferences.getBool("admin")!
                     ? DataHandlingState(
                         statusRequest: controller.statusRequest1,
@@ -66,7 +66,7 @@ class AddTaskViewBody extends StatelessWidget {
                           ),
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
                 Text(
                   "Task Title",
                   style: TextStyle(
@@ -94,9 +94,7 @@ class AddTaskViewBody extends StatelessWidget {
                     return validation(type: "Username", val: val!);
                   },
                 ),
-                const SizedBox(height: 10),
-                const SizedBox(height: 20),
-                const SizedBox(height: 20),
+                const SizedBox(height: 50),
                 Center(
                   child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -107,7 +105,11 @@ class AddTaskViewBody extends StatelessWidget {
                       ),
                       child: DataHandlingState(
                         widget: AppButton(
-                            name: "add task", onPressed: controller.addTask),
+                          name: "add task",
+                          onPressed: () {
+                            controller.addTask;
+                          },
+                        ),
                         statusRequest: controller.statusRequest,
                       )),
                 ),

@@ -107,7 +107,6 @@ class TaskDetailsControllerImp extends TaskDetailsController {
         });
         statusRequest = StatusRequest.success;
 
-        Get.offAllNamed(kBottomNavigationScreen);
       }
       update();
     } catch (e) {}

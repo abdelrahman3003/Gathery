@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:note_app/controller/join_event_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
