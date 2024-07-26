@@ -107,7 +107,7 @@ class AddTaskViewBody extends StatelessWidget {
                         widget: AppButton(
                           name: "add task",
                           onPressed: () {
-                            controller.addTask;
+                            controller.addTask();
                           },
                         ),
                         statusRequest: controller.statusRequest,

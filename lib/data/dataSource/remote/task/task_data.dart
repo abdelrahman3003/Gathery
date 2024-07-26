@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:note_app/core/constatnt/crud.dart';
 import 'package:note_app/core/constatnt/statuscode.dart';
 
@@ -18,7 +19,8 @@ class TaskData {
       "option": options,
       "optionFinished": optionsFinished,
       'event': event,
-      'sliderValue':sliderValue
+      'sliderValue': sliderValue,
+      "date": FieldValue.serverTimestamp(),
     });
   }
 

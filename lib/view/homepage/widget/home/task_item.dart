@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:note_app/controller/home/tasks_controller.dart';
 import 'package:note_app/core/constatnt/app_color.dart';
-import 'package:get/get.dart';
 import 'package:note_app/data/model/task_model.dart';
 
 class TaskItem extends StatelessWidget {

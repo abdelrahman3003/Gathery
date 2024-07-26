@@ -68,7 +68,6 @@ class VoteControllerImp extends VoteController {
       });
       Get.offAllNamed(kBottomNavigationScreen, arguments: {"index": 2});
     } catch (e) {
-      print('================ Error updating value in list of maps: $e');
     }
     update();
   }
@@ -122,7 +121,6 @@ class VoteControllerImp extends VoteController {
         appServices.sharedPreferences.getString("id"),
       );
     } catch (e) {
-      print('Error checking if user has voted: $e');
       return false;
     }
   }

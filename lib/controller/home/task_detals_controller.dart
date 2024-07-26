@@ -96,7 +96,7 @@ class TaskDetailsControllerImp extends TaskDetailsController {
 
       QuerySnapshot querySnapshot = await firestore
           .collection("Tasks")
-          .where("member", isEqualTo: taskModel.user)
+          .where("title", isEqualTo: taskModel.taskName)
           .get();
 
       // Iterate over each document that matches the criteria
@@ -106,7 +106,6 @@ class TaskDetailsControllerImp extends TaskDetailsController {
           "sliderValue": sliderValue,
         });
         statusRequest = StatusRequest.success;
-
       }
       update();
     } catch (e) {}
